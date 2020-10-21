@@ -29,8 +29,8 @@ async function getImage(data) {	//return a Buffer
 		//encoding: 'base64'
 		puppeteerArgs: {	//	https://github.com/puppeteer/puppeteer/blob/8370ec88ae94fa59d9e9dc0c154e48527d48c9fe/docs/api.md#puppeteerlaunchoptions
 			defaultViewport: {
-				width: 500,
-				height: 500
+				width: 300,
+				height: 180
 			}
 		//	executablePath: '/usr/bin/google-chrome-stable',
 		//	userDataDir: '/home/user/browsers/chrome',
