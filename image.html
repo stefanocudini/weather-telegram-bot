@@ -1,0 +1,84 @@
+<html>
+<head>
+<style>
+body {
+	width: 300px;
+	height: 200px;
+	text-align:center;
+	background: white;
+	color: black;
+	font-size: 16px;
+}
+img {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 60px;
+	height: 60px;
+}
+.wind-dial_wrapper {
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+    margin: 0 auto .5em;
+    position: relative;
+    float: right;
+}
+img.wind-dial {
+	max-width: 100%;
+	width: 100%;
+    height: auto;
+    -ms-interpolation-mode: bicubic;
+    display: inline-block;
+    vertical-align: middle;
+    border:none;
+}
+.arrow-wrapper {
+	position: absolute;
+    width: 10px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+}
+.text-wrapper {
+	top: 0;
+    left: 0;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 13% 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+	<img src="{{imgLogo}}" />
+	<h1>{{title}}</h1>
+	<div class="wind-dial_wrapper">
+		<img alt="img" class="wind-dial" src="{{imgWindDial}}" />
+		<div class="text-wrapper">
+			<span class="text-bold">windDirH</span>
+		</div>
+		<div class="arrow-wrapper" style="transform: translateX(-50%) rotate({{windDir}}deg);">
+			<img alt="img" src="{{imgWindMarker}}">
+		</div>
+	</div>	
+	Vento {{windSpeed}}km/h
+	<br />
+	Raffica {{windGust}}km/h
+	<br />
+	Direzione {{windDir}} {{windDirH}}
+	<br />
+	Temperatura {{temp}}°C
+	<br />
+	{{date}}, {{time}}
+</body>
+</html>
