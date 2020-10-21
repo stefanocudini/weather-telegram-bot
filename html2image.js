@@ -23,8 +23,8 @@ async function getImage(data) {	//return a Buffer
 		html: html,
 		content: data,
 		//output: outfile,
-		//type: 'png', //jpeg
-		//quality: 80,
+		type: 'png', //jpeg
+		//quality: 90,
 		//transparent: true,
 		//encoding: 'base64'
 		puppeteerArgs: {	//	https://github.com/puppeteer/puppeteer/blob/8370ec88ae94fa59d9e9dc0c154e48527d48c9fe/docs/api.md#puppeteerlaunchoptions
