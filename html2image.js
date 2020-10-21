@@ -1,5 +1,4 @@
 const fs = require('fs');
-const tmp = require('tmp');
 const open = require('open');
 const _ = require('lodash');
 const nodeHtmlToImage = require('node-html-to-image');
@@ -12,7 +11,7 @@ var imgWindMarker = 'data:image/svg+xml;base64,'+fs.readFileSync(imgDir+'WindMar
 
 var html = new Buffer.from(fs.readFileSync(__dirname+'/image.html')).toString('utf8');
 
-async function getImage(data) {
+async function getImage(data) {	//return a Buffer
 
 	_.extend(data, {
 		imgLogo: imgLogo,
@@ -28,9 +27,14 @@ async function getImage(data) {
 		//quality: 80,
 		//transparent: true,
 		//encoding: 'base64'
-		//puppeteerArgs: {
-			//https://github.com/puppeteer/puppeteer/blob/8370ec88ae94fa59d9e9dc0c154e48527d48c9fe/docs/api.md#puppeteerlaunchoptions
-		//}
+		puppeteerArgs: {	//	https://github.com/puppeteer/puppeteer/blob/8370ec88ae94fa59d9e9dc0c154e48527d48c9fe/docs/api.md#puppeteerlaunchoptions
+			defaultViewport: {
+				width: 500,
+				height: 500
+			}
+		//	executablePath: '/usr/bin/google-chrome-stable',
+		//	userDataDir: '/home/user/browsers/chrome',
+		}
 	});
 	/*.then(() => {
 		console.log('out image', outfile)
@@ -44,15 +48,3 @@ module.exports = function(data, cb) {
 
 	getImage(data).then(cb);
 };
-
-if (require.main === module) {
- 	module.exports(process.argv[2], o => {
-		//process.stdout.write(o);
-		
-		const outfile = tmp.tmpNameSync({prefix:'html2image-', postfix:'.png'});
-
-		fs.writeFileSync(outfile, o)
-
-		open(outfile);
-	});
-}

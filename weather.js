@@ -22,19 +22,23 @@ function formatCondition(place, json) {
 	let o = json.observations[0];
 	let m = json.observations[0].metric;
 	var v = {
+		botName: config.bot_name,
 		title: config.stations[place].title,
 		windSpeed: m.windSpeed,
 		windGust: m.windGust,
-		windDir: o.winddir,
-		windDirH: util.azimut(o.winddir),
+		windDir: o.winddir - 180,
+		windDirH: util.azimut(o.winddir).toUpperCase(),
 		temp: m.temp,
 		date: moment(o.obsTimeLocal).format('LLL'),
 		time: moment(o.obsTimeLocal).fromNow()
 	};
 	return v;
-}
+};
 
 module.exports = {
+
+	formatCondition: formatCondition,
+
 	conditions: function(place, cb) {
 		cb = cb || _.noop;
 
@@ -71,7 +75,7 @@ module.exports = {
 	}
 }
 
-
+//run by command line
 if (require.main === module) {
  	module.exports.conditions(process.argv[2], data => {
  		console.log(JSON.stringify(data))

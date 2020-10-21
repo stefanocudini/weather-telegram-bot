@@ -3,7 +3,6 @@ const telegraf = require('telegraf');
 const Telegram = require('telegraf/telegram')
 const config = require('./config');
 const weather = require('./weather');
-const open = require('open');
 const html2image = require('./html2image');
 //TODO require('dotenv').config()
 

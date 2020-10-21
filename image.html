@@ -4,15 +4,25 @@
 body {
 	width: 300px;
 	height: 200px;
-	text-align:center;
-	background: white;
 	color: black;
 	font-size: 16px;
+	padding: 5px;
+	background-color: white;	
+	background-position: 5px 5px;
+	background-repeat: no-repeat;
+	
+	background-size: 50px 50px;
+	
 }
-img {
-	position: absolute;
-	top: 10px;
-	left: 10px;
+h1 {
+	text-align: right;
+	font-size: 20px
+}
+#logo {
+/*	position: absolute;
+	top: 5px;
+	left: 5px;
+*/	float: left;
 	width: 60px;
 	height: 60px;
 }
@@ -28,7 +38,6 @@ img.wind-dial {
 	max-width: 100%;
 	width: 100%;
     height: auto;
-    -ms-interpolation-mode: bicubic;
     display: inline-block;
     vertical-align: middle;
     border:none;
@@ -39,10 +48,21 @@ img.wind-dial {
     height: 100%;
     top: 0;
     left: 50%;
+    box-sizing: border-box;
+    text-align: center;
+}
+.arrow-wrapper img {
+	position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
 }
 .text-wrapper {
+	position: absolute;
 	top: 0;
     left: 0;
+    font-size: 16px;
     display: -webkit-box;
     display: flex;
     -webkit-box-orient: vertical;
@@ -50,22 +70,24 @@ img.wind-dial {
     flex-direction: column;
     -webkit-box-pack: center;
     justify-content: center;
-    position: absolute;
     width: 100%;
-    height: 100%;
+    height: 80%;
     padding: 13% 0;
     text-align: center;
-    text-transform: uppercase;
+}
+#copy {
+	position: absolute;
+	right: 0;
 }
 </style>
 </head>
-<body>
-	<img src="{{imgLogo}}" />
+<body style="background-image: url('{{imgLogo}}')">
+	<small id="copy">{{botName}}</small>
 	<h1>{{title}}</h1>
 	<div class="wind-dial_wrapper">
 		<img alt="img" class="wind-dial" src="{{imgWindDial}}" />
 		<div class="text-wrapper">
-			<span class="text-bold">windDirH</span>
+			<span>{{windDirH}}</span>
 		</div>
 		<div class="arrow-wrapper" style="transform: translateX(-50%) rotate({{windDir}}deg);">
 			<img alt="img" src="{{imgWindMarker}}">
@@ -75,10 +97,12 @@ img.wind-dial {
 	<br />
 	Raffica {{windGust}}km/h
 	<br />
-	Direzione {{windDir}} {{windDirH}}
+	Direzione {{windDirH}}
 	<br />
 	Temperatura {{temp}}°C
 	<br />
-	{{date}}, {{time}}
+	{{date}}
+	<br />
+	{{time}}
 </body>
 </html>

@@ -28,6 +28,8 @@ if(fs.existsSync(fileSts)) {
 
 module.exports = {
 
+	bot_name:  process.env.BOT_NAME,
+
 	bot_token: process.env.BOT_TOKEN,
 
 	wu_apikey: process.env.WU_APIKEY,
