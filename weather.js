@@ -19,7 +19,7 @@ function formatCondition(place, json) {
 
 	let o = json.observations[0];
 	let m = json.observations[0].metric;	
-console.log(o,m)
+//console.log(o,m)
 	var v = {
 		botName: config.bot_name,
 		title: config.stations[place].title,
