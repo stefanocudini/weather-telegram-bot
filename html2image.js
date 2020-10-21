@@ -32,7 +32,7 @@ async function getImage(data) {	//return a Buffer
 				width: 300,
 				height: 180
 			},
-			args: ['--no-sandbox']
+			args: ['--no-sandbox', '--disable-setuid-sandbox']
 		//	executablePath: '/usr/bin/google-chrome-stable',
 		//	userDataDir: '/home/user/browsers/chrome',
 		}

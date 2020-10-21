@@ -12,8 +12,6 @@ const util = require('./util');
 
 moment.locale('it');
 
-var wu = new WeatherUndergroundNode(config.wu_apikey);
-
 function formatCondition(place, json) {
 
 	if(!json.observations)
@@ -45,6 +43,8 @@ module.exports = {
 		if(config.stations[place]) {
 
 			let id = config.stations[place].id;
+
+			let wu = new WeatherUndergroundNode(config.wu_apikey);
 
 			wu
 			.PWSCurrentContitions(id)
