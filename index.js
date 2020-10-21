@@ -10,8 +10,8 @@ const html2image = require('./html2image');
 const bot = new telegraf(config.bot_token);
 
 const tt = {
-	start: "Bevo Libero Vallelaghi Bot al tuo servizio! 🌤🌦🍻",
-	cmds: "scrivi /list per l'elenco delle stazioni"
+	start: "@bevoliberovallelaghi_bot al tuo servizio!🌤🌦🍻",
+	cmds: "scrivi /list per l'elenco delle stazioni meteo",
 };
 
 bot.start( ctx => {
@@ -64,6 +64,5 @@ bot.on('text', ct => {
 	text = ct.update.message.text;
 	console.log('onText:', process.env);
 });
-
 
 bot.launch();

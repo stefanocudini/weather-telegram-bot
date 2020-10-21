@@ -18,7 +18,7 @@ function formatCondition(place, json) {
 		return null;
 
 	let o = json.observations[0];
-	let m = json.observations[0].metric;
+	let m = json.observations[0].metric;	
 	var v = {
 		botName: config.bot_name,
 		title: config.stations[place].title,
@@ -27,6 +27,7 @@ function formatCondition(place, json) {
 		windDir: o.winddir - 180,
 		windDirH: util.azimut(o.winddir).toUpperCase(),
 		temp: m.temp,
+		ele: m.elev,  
 		date: moment(o.obsTimeLocal).format('LLL'),
 		time: moment(o.obsTimeLocal).fromNow()
 	};
@@ -68,7 +69,7 @@ module.exports = {
 	simpleFormat: function(data) {
 		_.templateSettings.escape = /\{(.+?)\}/g;
 
-		var ttmpl = "{title}\nVento {windSpeed}km/h \nRaffica {windGust}km/h \nDirezione {windDir} {windDirH} \nTemperatura {temp}°C \n{date}, {time}";
+		var ttmpl = "{title}\nVento {windSpeed}km/h \nRaffica {windGust}km/h \nDirezione {windDir} {windDirH} \nTemperatura {temp}°C \n{date}";
 		var mtmpl = _.template(ttmpl);
 		
 		return mtmpl(data);

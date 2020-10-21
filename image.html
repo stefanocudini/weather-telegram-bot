@@ -2,19 +2,22 @@
 <head>
 <style>
 body {
-
 	font-size: 16px;
 	background-color: white;
-	color: black;	
+	color: black;
+	padding: 0;
+	margin: 0;
 }
 #logo {
 	position: absolute;
-	top: 5px;
-	left: 5px;
-	opacity: 0.4;
-	height: 50%;
+	top: 50%;
+	left: 50%;
+	margin-top: -80px;
+	margin-left: -80px;
+	opacity: 0.35;
+	height: 160px;
 	width: auto;
-	z-index: 0
+	z-index: 0;
 }
 .wrapper {
 	z-index: 100;
@@ -23,15 +26,17 @@ body {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	padding: 15px;
+	padding: 10px;
 }
 h1 {
 	text-align: right;
-	font-size: 20px
+	font-size: 20px;
+	display: block;
+	margin: 10px 0;
 }
 .wind-dial_wrapper {
-    width: 5em;
-    height: 5em;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     margin: 0 auto .5em;
     position: relative;
@@ -80,20 +85,39 @@ img.wind-dial {
 }
 .info {
 	font-size: 14px;
-	font-family: courier
+	font-family: courier;
+	line-height: 16px;
+	color: black;
+	text-shadow: 0 0 5px white;
+	font-weight: bold;
 }
-#copy {
+#bot {
 	position: absolute;
-	top: 10px;
-	left: 10px;
+	top: 0;
+	left: 0;
+	right: 0;
 	opacity: 0.8;
+	margin: 0;
+	padding: 0 5px;
+	font-size: 13px;
+	white-space: nowrap;	
+	background: #fc0;
+	text-align: left;
+}
+#author {
+	position: absolute;
+	bottom: 3px;
+	right: 3px;
+	color: #666;
+	font-family: Arial;
+	font-size: 9px;
 }
 </style>
 </head>
 <body>
 	<img id="logo" src="{{imgLogo}}" />
 	<div class="wrapper">
-		<small id="copy">{{botName}}</small>
+		<small id="bot">{{botName}}</small>
 		<h1>{{title}}</h1>
 		<div class="wind-dial_wrapper">
 			<img alt="img" class="wind-dial" src="{{imgWindDial}}" />
@@ -105,18 +129,21 @@ img.wind-dial {
 			</div>
 		</div>
 		<div class="info">
-			Vento {{windSpeed}}km/h
+			Vento {{windSpeed}} km/h
 			<br />
-			Raffica {{windGust}}km/h
+			Raffica {{windGust}} km/h
 			<br />
 			Direzione {{windDirH}}
 			<br />
 			Temperatura {{temp}}°C
 			<br />
+			Altitudine {{ele}} slm
+			<br />
 			{{date}}
 			<br />
-			{{time}}
+			Rilevata {{time}}
 		</div>
+		<em id="author">by Stef</em>
 	</div>
 </body>
 </html>
