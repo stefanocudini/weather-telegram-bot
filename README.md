@@ -1,2 +1,2 @@
-# weather_bot
-weather telegram bot
+# weather bot
+weather telegram bot  in NodeJs
