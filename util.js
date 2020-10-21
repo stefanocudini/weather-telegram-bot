@@ -1,7 +1,9 @@
 
 module.exports = {
-	azimut: function(ang) {
+	azimut: function(a) {
+		var ang = parseFloat(a);
+		var i = Math.round(ang/22.5);
 		var texts = "n,nne,ne,ene,e,ese,se,sse,s,ssw,sw,wsw,w,wnw,nw,nnw,n";
-		return texts.split(',')[Math.round(parseFloat(ang)/22.5)];
+		return texts.split(',')[i];
 	}
 };

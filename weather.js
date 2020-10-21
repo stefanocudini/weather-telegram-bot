@@ -19,13 +19,14 @@ function formatCondition(place, json) {
 
 	let o = json.observations[0];
 	let m = json.observations[0].metric;	
+console.log(o,m)
 	var v = {
 		botName: config.bot_name,
 		title: config.stations[place].title,
 		windSpeed: m.windSpeed,
 		windGust: m.windGust,
 		windDir: o.winddir - 180,
-		windDirH: util.azimut(o.winddir).toUpperCase(),
+		windDirH: util.azimut(o.winddir),
 		temp: m.temp,
 		ele: m.elev,  
 		date: moment(o.obsTimeLocal).format('LLL'),
