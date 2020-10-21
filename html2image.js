@@ -31,7 +31,8 @@ async function getImage(data) {	//return a Buffer
 			defaultViewport: {
 				width: 300,
 				height: 180
-			}
+			},
+			args: ['--no-sandbox']
 		//	executablePath: '/usr/bin/google-chrome-stable',
 		//	userDataDir: '/home/user/browsers/chrome',
 		}
