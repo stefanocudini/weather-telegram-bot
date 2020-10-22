@@ -5,6 +5,7 @@
 	},
 	"stivo": {
 		"id": "IARCO21",
-		"title": "Rifugio Monte Stivo"
+		"title": "Rifugio Monte Stivo",
+		"webcam": "http://example.com/montestivo/webcam.jpg"
 	}
 }

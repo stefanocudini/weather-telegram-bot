@@ -30,7 +30,8 @@ function formatCondition(place, json) {
 		temp: m.temp,
 		ele: m.elev,  
 		date: moment(o.obsTimeLocal).format('LLL'),
-		time: moment(o.obsTimeLocal).fromNow()
+		time: moment(o.obsTimeLocal).fromNow(),
+		webcam: config.stations[place].webcam
 	};
 	return v;
 };

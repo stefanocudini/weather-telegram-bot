@@ -41,11 +41,9 @@ for(let id in config.stations) {
 			html2image(res, buf => {
 				ctx.replyWithPhoto({
 					source: buf
+				}, {
+					caption: weather.simpleFormat(res)+"\n\n"+tt.cmds
 				})
-				.then( () => {
-					ctx.reply(weather.simpleFormat(res));
-					ctx.reply(tt.cmds);
-				});
 			});
 		});
 
