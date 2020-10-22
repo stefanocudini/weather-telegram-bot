@@ -7,7 +7,7 @@ const config = require('./config');
 const weather = require('./weather');
 const html2image = require('./html2image');
 
-var id = 'lagolo';
+var place = 'panarotta';
 
 const testW = {
 	"observations": [
@@ -43,7 +43,7 @@ const testW = {
 	]
 };
 var res = null;
-//weather.conditions(id, res => {
+//weather.conditions(place, res => {
 
 	if(res==null) {
 		
@@ -51,7 +51,7 @@ var res = null;
 		
 		console.log(testW)
 
-		res = weather.formatCondition(id, testW);
+		res = weather.formatCondition(place, testW);
 	}
 
 	html2image(res, (buf, html) => {

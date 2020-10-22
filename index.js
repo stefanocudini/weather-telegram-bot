@@ -58,6 +58,10 @@ for(let id in config.stations) {
 
 bot.on('message', ctx => ctx.reply(tt.cmds));
 
+bot.on('message', ctx => {
+	console.log('onMessage',ctx)
+});
+
 bot.on('text', ct => {
 	text = ct.update.message.text;
 	console.log('onText:', process.env);

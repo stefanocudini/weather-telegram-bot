@@ -5,7 +5,7 @@ const nodeHtmlToImage = require('node-html-to-image');
 //	https://github.com/frinyvonnick/node-html-to-image
 const imgDir = __dirname+'/images/';
 
-var imgLogo = 'data:image/png;base64,'+fs.readFileSync(imgDir+'logo.png', {encoding:'base64'});
+var imgLogo = 'data:image/svg+xml;base64,'+fs.readFileSync(imgDir+'logo.svg', {encoding:'base64'});
 var imgWindDial = 'data:image/svg+xml;base64,'+fs.readFileSync(imgDir+'WindDial.svg', {encoding:'base64'});
 var imgWindMarker = 'data:image/svg+xml;base64,'+fs.readFileSync(imgDir+'WindMarker.svg', {encoding:'base64'});
 
