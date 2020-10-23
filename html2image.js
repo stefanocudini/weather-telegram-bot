@@ -1,5 +1,4 @@
 const fs = require('fs');
-const open = require('open');
 const _ = require('lodash');
 const nodeHtmlToImage = require('node-html-to-image');
 //	https://github.com/frinyvonnick/node-html-to-image
@@ -37,10 +36,6 @@ async function getImage(data) {	//return a Buffer
 		//	userDataDir: '/home/user/browsers/chrome',
 		}
 	});
-	/*.then(() => {
-		console.log('out image', outfile)
-		open(outfile);
-	});*/
 	return out;
 }
 

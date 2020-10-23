@@ -1,7 +1,8 @@
 
 const fs = require('fs');
+const { spawn } = require('child_process');
+
 const tmp = require('tmp');
-const open = require('open');
 
 const config = require('./config');
 const weather = require('./weather');
@@ -58,9 +59,14 @@ var res = null;
 
 		let outfile = tmp.tmpNameSync({prefix:'html2image-', postfix:'.png'});
 
-		fs.writeFileSync(outfile, buf)
+		fs.writeFileSync(outfile, buf);
 
-		open(outfile);
+		var child = spawn('shotwell', [outfile]);
+		
+		setTimeout(()=> {
+			child.kill();
+		},10000)
+
 	});
 
 //});

@@ -6,6 +6,7 @@ const weather = require('./weather');
 const html2image = require('./html2image');
 //TODO require('dotenv').config()
 
+//const fetch = require('node-fetch');
 
 const bot = new telegraf(config.bot_token);
 
@@ -24,26 +25,41 @@ bot.command('list', ctx => {
 	ctx.reply(weather.list());
 });
 
-for(let id in config.stations) {
+for(let name in config.stations) {
+
 	
-	bot.command(id, ctx => {
+	
+	bot.command(name, ctx => {
 
-//TODO replyWithVoice
-		
-		/*html2image(id, buf => {
-			ctx.replyWithPhoto({
-				source: buf
-			});
-		});*/
+		weather.conditions(name, res => {
 
-		weather.conditions(id, res => {
+			let station = config.stations[name];
 			
 			html2image(res, buf => {
-				ctx.replyWithPhoto({
-					source: buf
-				}, {
+
+				let medias = [{
+					source: buf,
 					caption: weather.simpleFormat(res)+"\n\n"+tt.cmds
-				})
+				}];
+				// https://github.com/telegraf/telegraf/blob/develop/docs/examples/media-bot.js
+				if(station.webcam) {
+					
+					console.log('media',station)
+
+					fetch(station.webcam).then(res =>  {
+						medias.push({
+							source: res.buffer(),
+							//media: { url: station.webcam },
+							caption: 'webcam',
+							//type: 'photo'
+						});
+						ctx.replyWithMediaGroup(medias);
+					});
+
+					
+				}
+				else
+					ctx.replyWithMediaGroup(medias);
 			});
 		});
 

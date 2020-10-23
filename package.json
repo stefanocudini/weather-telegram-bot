@@ -13,13 +13,15 @@
     "node": "10.x"
   },
   "devDependencies": {
+    "express": "^4.17.1",
     "nodemon": "^2.0.4",
-    "open": "^7.3.0"
+    "pem": "^1.14.4"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
+    "node-fetch": "^2.6.1",
     "node-html-to-image": "^3.1.0",
     "telegraf": "^3.38.0",
     "tmp": "^0.2.1",

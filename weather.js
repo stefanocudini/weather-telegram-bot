@@ -12,8 +12,8 @@ const util = require('./util');
 
 moment.locale('it');
 
-function formatCondition(place, json) {
-
+function formatCondition(name, json) {
+console.log('formatCondition',name)
 	if(!json.observations)
 		return null;
 
@@ -22,7 +22,7 @@ function formatCondition(place, json) {
 //console.log(o,m)
 	var v = {
 		botName: config.bot_name,
-		title: config.stations[place].title,
+		title: config.stations[name].title,
 		windSpeed: m.windSpeed,
 		windGust: m.windGust,
 		windDir: o.winddir - 180,
@@ -31,7 +31,7 @@ function formatCondition(place, json) {
 		ele: m.elev,  
 		date: moment(o.obsTimeLocal).format('LLL'),
 		time: moment(o.obsTimeLocal).fromNow(),
-		webcam: config.stations[place].webcam
+		webcam: config.stations[name].webcam
 	};
 	return v;
 };
@@ -40,20 +40,20 @@ module.exports = {
 
 	formatCondition: formatCondition,
 
-	conditions: function(place, cb) {
+	conditions: function(name, cb) {
 		cb = cb || _.noop;
 
-		if(config.stations[place]) {
+		if(config.stations[name]) {
 
-			let id = config.stations[place].id;
+			let wid = config.stations[name].wid;
 
 			let wu = new WeatherUndergroundNode(config.wu_apikey);
 
 			wu
-			.PWSCurrentContitions(id)
+			.PWSCurrentContitions(wid)
 			.request(function (err, res) {
 
-				var cond = formatCondition(place, res);
+				var cond = formatCondition(name, res);
 
 				var text = err ? err.msg : cond;
 
