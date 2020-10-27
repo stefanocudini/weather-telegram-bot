@@ -34,5 +34,12 @@ module.exports = {
 
 	wu_apikey: process.env.WU_APIKEY,
 
+	author: process.env.AUTHOR,
+
+	photo: {
+		width: 280,
+		height: 180
+	},
+
 	stations: stations
 };

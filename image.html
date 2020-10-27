@@ -107,7 +107,7 @@ img.wind-dial {
 #author {
 	position: absolute;
 	top: 3px;
-	right: 3px;
+	right: 5px;
 	color: #666;
 	font-family: Arial;
 	font-size: 10px;
@@ -117,7 +117,7 @@ img.wind-dial {
 <body>
 	<img id="logo" src="{{imgLogo}}" />
 	<div class="wrapper">
-		<small id="bot">{{botName}}</small>
+		<small id="bot">{{bot_name}}</small>
 		<h1>{{title}}</h1>
 		<div class="wind-dial_wrapper">
 			<img alt="img" class="wind-dial" src="{{imgWindDial}}" />
@@ -143,7 +143,7 @@ img.wind-dial {
 			<br />
 			Rilevata {{time}}
 		</div>
-		<em id="author">by @stefcud</em>
+		<em id="author">by {{author}}</em>
 	</div>
 </body>
 </html>

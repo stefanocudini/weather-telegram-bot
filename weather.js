@@ -13,7 +13,6 @@ const util = require('./util');
 moment.locale('it');
 
 function formatCondition(name, json) {
-console.log('formatCondition',name)
 	if(!json.observations)
 		return null;
 
@@ -21,7 +20,6 @@ console.log('formatCondition',name)
 	let m = json.observations[0].metric;	
 //console.log(o,m)
 	var v = {
-		botName: config.bot_name,
 		title: config.stations[name].title,
 		windSpeed: m.windSpeed,
 		windGust: m.windGust,
@@ -55,9 +53,7 @@ module.exports = {
 
 				var cond = formatCondition(name, res);
 
-				var text = err ? err.msg : cond;
-
-				cb(text);
+				cb( err || cond );
 			});
 		}
 		else

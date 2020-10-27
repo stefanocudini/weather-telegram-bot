@@ -1,12 +1,12 @@
 
 const telegraf = require('telegraf');
-const Telegram = require('telegraf/telegram')
+const telegram = require('telegraf/telegram')
 const config = require('./config');
 const weather = require('./weather');
 const html2image = require('./html2image');
 //TODO require('dotenv').config()
 
-//const fetch = require('node-fetch');
+const fetch = require('node-fetch');
 
 const bot = new telegraf(config.bot_token);
 
@@ -14,6 +14,21 @@ const tt = {
 	start: "@bevoliberovallelaghi_bot al tuo servizio!🌤🌦🍻",
 	cmds: "scrivi /list per l'elenco delle stazioni meteo",
 };
+
+
+/*var botMe = bot.telegram.getMe();
+(async () => {
+	console.log('me', await botMe.then())
+	
+	id: 1319224921,
+	  is_bot: true,
+	  first_name: 'Bevo Libero Vallelaghi 🌤⛅️🌦🍻',
+	  username: 'bevoliberovallelaghi_bot',
+	  can_join_groups: true,
+	  can_read_all_group_messages: false,
+	  supports_inline_queries: false
+	  
+})();*/
 
 bot.start( ctx => {
 	console.log('Bot start...');
@@ -26,40 +41,30 @@ bot.command('list', ctx => {
 });
 
 for(let name in config.stations) {
-
-	
 	
 	bot.command(name, ctx => {
 
-		weather.conditions(name, res => {
+		weather.conditions(name, data => {
 
 			let station = config.stations[name];
 			
-			html2image(res, buf => {
+			html2image(data, buf => {
 
 				let medias = [{
-					source: buf,
-					caption: weather.simpleFormat(res)+"\n\n"+tt.cmds
+					media: { source: buf },
+					type: 'photo',
+					caption: tt.cmds//weather.simpleFormat(data)
 				}];
 				// https://github.com/telegraf/telegraf/blob/develop/docs/examples/media-bot.js
 				if(station.webcam) {
-					
-					console.log('media',station)
-
-					fetch(station.webcam).then(res =>  {
-						medias.push({
-							source: res.buffer(),
-							//media: { url: station.webcam },
-							caption: 'webcam',
-							//type: 'photo'
-						});
-						ctx.replyWithMediaGroup(medias);
+					medias.push({
+						//source: res.buffer(),
+						media: { url: station.webcam },
+						type: 'photo'
 					});
-
-					
 				}
-				else
-					ctx.replyWithMediaGroup(medias);
+
+				ctx.replyWithMediaGroup(medias);
 			});
 		});
 
