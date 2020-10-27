@@ -12,7 +12,7 @@ body {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin-top: -120px;
+	margin-top: -100px;
 	margin-left: -90px;
 	opacity: 0.35;
 	height: 240px;
@@ -96,8 +96,9 @@ img.wind-dial {
     justify-content: center;
     width: 100%;
     height: 80%;
-    padding: 13% 0;
+    padding: 12% 0;
     text-align: center;
+    text-transform: uppercase;
 }
 .info {
 	font-size: 18px;
@@ -108,7 +109,6 @@ img.wind-dial {
 	text-shadow: 0 0 5px white;
 	padding: 0;
 	margin: 0;
-	
 	white-space: nowrap;
 }
 </style>
@@ -124,7 +124,7 @@ img.wind-dial {
 		<div class="wind-dial_wrapper">
 			<img alt="img" class="wind-dial" src="{{imgWindDial}}" />
 			<div class="text-wrapper">
-				<span>{{windDirH}}</span>
+				<span>{{windDirh}}</span>
 			</div>
 			<div class="arrow-wrapper" style="transform: translateX(-50%) rotate({{windDir}}deg);">
 				<img alt="img" src="{{imgWindMarker}}">

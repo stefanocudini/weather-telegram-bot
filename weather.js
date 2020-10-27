@@ -24,7 +24,8 @@ function formatCondition(name, json) {
 		windSpeed: m.windSpeed,
 		windGust: m.windGust,
 		windDir: o.winddir - 180,
-		windDirH: util.azimut(o.winddir),
+		windDirh: util.azimuth(o.winddir),
+		windDirH: util.azimuth(o.winddir, true),
 		temp: m.temp,
 		ele: m.elev,  
 		date: moment(o.obsTimeLocal).format('LLL'),
@@ -59,11 +60,13 @@ module.exports = {
 		else
 			cb(null);
 	},
+
 	list: function() {
 		return _.map(Object.keys(config.stations), k => {
 			return '/'+k;
 		}).join("\n\n");
 	},
+
 	simpleFormat: function(data) {
 		_.templateSettings.escape = /\{(.+?)\}/g;
 

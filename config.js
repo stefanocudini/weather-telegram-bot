@@ -34,12 +34,16 @@ module.exports = {
 
 	author: process.env.AUTHOR,
 
-	photo: {
+	imagesPath: __dirname+'/images/',
+
+	photos: {
+		type: 'png', //jpeg
 		width: 280,
 		height: 200
 	},
 
 	i18n: {
+		azimuth: "Nord,Nord-NordEst,Nord-Est,Est-NordEst,Est,Est-SudEst,Sud-Est,Sud-SudEst,Sud,Sud-SudOvest,Sud-Ovest,Ovest-SudOvest,Ovest,Ovest-NordOvest,Nord-Ovest,Nord-NordOvest,Nord",
 		list: "scrivi /list per l'elenco delle stazioni meteo",
 	},
 
