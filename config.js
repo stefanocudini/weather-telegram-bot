@@ -39,5 +39,9 @@ module.exports = {
 		height: 200
 	},
 
+	i18n: {
+		list: "scrivi /list per l'elenco delle stazioni meteo",
+	},
+
 	stations: stations
 };

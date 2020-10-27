@@ -10,12 +10,6 @@ const fetch = require('node-fetch');
 
 const bot = new telegraf(config.bot_token);
 
-const tt = {
-	start: "@bevoliberovallelaghi_bot al tuo servizio!🌤🌦🍻",
-	cmds: "scrivi /list per l'elenco delle stazioni meteo",
-};
-
-
 /*var botMe = bot.telegram.getMe();
 (async () => {
 	console.log('me', await botMe.then())
@@ -32,8 +26,8 @@ const tt = {
 
 bot.start( ctx => {
 	console.log('Bot start...');
-	ctx.reply(tt.start);
-	ctx.reply(tt.cmds);
+	//ctx.reply(config.i18n.welcome);
+	ctx.reply(config.i18n.list);
 });
 
 bot.command('list', ctx => {
@@ -55,7 +49,7 @@ for(let name in config.stations) {
 				let medias = [{
 					media: { source: buf },
 					type: 'photo',
-					caption: tt.cmds//weather.simpleFormat(data)
+					caption: config.i18n.list//weather.simpleFormat(data)
 				}];
 				// https://github.com/telegraf/telegraf/blob/develop/docs/examples/media-bot.js
 				if(station.webcam) {
@@ -79,7 +73,7 @@ for(let name in config.stations) {
 	console.log('command /meteo', param);
 });*/
 
-bot.on('message', ctx => ctx.reply(tt.cmds));
+bot.on('message', ctx => ctx.reply(config.i18n.list));
 
 bot.on('message', ctx => {
 	console.log('onMessage',ctx)
