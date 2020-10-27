@@ -18,7 +18,7 @@ function formatCondition(name, json) {
 
 	let o = json.observations[0];
 	let m = json.observations[0].metric;	
-//console.log(o,m)
+
 	var v = {
 		title: config.stations[name].title,
 		windSpeed: m.windSpeed,
@@ -47,10 +47,12 @@ module.exports = {
 			let wid = config.stations[name].wid;
 
 			let wu = new WeatherUndergroundNode(config.weather.apikey);
-
+			console.log('WeatherUnderground connect...');
 			wu
 			.PWSCurrentContitions(wid)
 			.request(function (err, res) {
+
+				console.log('WeatherUnderground response...', err || _.get(res,'observations[0].obsTimeUtc'))
 
 				var cond = formatCondition(name, res);
 

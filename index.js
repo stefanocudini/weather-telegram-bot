@@ -40,6 +40,8 @@ for(let name in config.stations) {
 
 		weather.conditions(name, data => {
 
+			console.log('weather conditions', name, data.date);
+
 			let station = config.stations[name];
 
 			data.botInfo = ctx.botInfo;
