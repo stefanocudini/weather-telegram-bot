@@ -47,6 +47,8 @@ for(let name in config.stations) {
 		weather.conditions(name, data => {
 
 			let station = config.stations[name];
+
+			data.botInfo = ctx.botInfo;
 			
 			html2image(data, buf => {
 

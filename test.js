@@ -43,19 +43,23 @@ const testW = {
 		}
 	]
 };
-var res = null;
-//weather.conditions(place, res => {
+var data = null;
+//weather.conditions(place, data => {
 
-	if(res==null) {
+	if(data==null) {
 		
 		testW.observations[0].winddir = parseInt(process.argv[2]);
 		
 		console.log(testW)
 
-		res = weather.formatCondition(place, testW);
+		data = weather.formatCondition(place, testW);
 	}
 
-	html2image(res, (buf, html) => {
+	data.botInfo = {
+		username: 'username_bot'
+	};
+
+	html2image(data, (buf, html) => {
 
 		let outfile = tmp.tmpNameSync({prefix:'html2image-', postfix:'.png'});
 
@@ -65,7 +69,7 @@ var res = null;
 		
 		setTimeout(()=> {
 			child.kill();
-		},10000)
+		}, 30000)
 
 	});
 

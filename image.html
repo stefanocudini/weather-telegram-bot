@@ -19,6 +19,27 @@ body {
 	width: auto;
 	z-index: 0;
 }
+#top {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	opacity: 0.8;
+	margin: 0;
+	padding: 1px 5px;
+	font-size: 12px;
+	white-space: nowrap;	
+	background: #fc0;
+	text-align: left;
+}
+#author {
+	position: absolute;
+	top: 3px;
+	right: 5px;
+	color: #666;
+	font-family: Arial;
+	font-size: 10px;
+}
 .wrapper {
 	z-index: 100;
 	position: absolute;
@@ -26,13 +47,13 @@ body {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	padding: 10px;
+	padding: 0 5px;
 }
 h1 {
 	text-align: right;
 	font-size: 20px;
 	display: block;
-	margin: 10px 0;
+	margin: 18px 0 0 0;
 }
 .wind-dial_wrapper {
     width: 80px;
@@ -84,40 +105,22 @@ img.wind-dial {
     text-align: center;
 }
 .info {
-	font-size: 14px;
-	font-family: courier;
-	line-height: 16px;
+	font-size: 18px;
+	font-family: Courier;
+	line-height: 22px;
 	color: black;
 	text-shadow: 0 0 5px white;
-	font-weight: bold;
-}
-#bot {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	opacity: 0.8;
+	padding: 0;
 	margin: 0;
-	padding: 2px 5px;
-	font-size: 12px;
-	white-space: nowrap;	
-	background: #fc0;
-	text-align: left;
-}
-#author {
-	position: absolute;
-	top: 3px;
-	right: 5px;
-	color: #666;
-	font-family: Arial;
-	font-size: 10px;
+	
+	white-space: nowrap;
 }
 </style>
 </head>
 <body>
 	<img id="logo" src="{{imgLogo}}" />
 	<div class="wrapper">
-		<small id="bot">{{bot_name}}</small>
+		<small id="top">Telegram: {{#with botInfo}}@{{username}}{{/with}}</small>
 		<h1>{{title}}</h1>
 		<div class="wind-dial_wrapper">
 			<img alt="img" class="wind-dial" src="{{imgWindDial}}" />
