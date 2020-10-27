@@ -46,7 +46,7 @@ module.exports = {
 
 			let wid = config.stations[name].wid;
 
-			let wu = new WeatherUndergroundNode(config.wu_apikey);
+			let wu = new WeatherUndergroundNode(config.weather.apikey);
 
 			wu
 			.PWSCurrentContitions(wid)
