@@ -41,8 +41,8 @@ module.exports = {
 
 	photos: {
 		type: 'png', //jpeg
-		width: 600,
-		height: 400
+		width: 280,
+		height: 200
 	},
 
 	i18n: {
