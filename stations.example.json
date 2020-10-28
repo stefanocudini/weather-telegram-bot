@@ -1,10 +1,10 @@
 {
 	"lagolo": {
-		"id": "IMADRUZZ2",
+		"wid": "IMADRUZZ2",
 		"title": "Lagolo decollo"
 	},
 	"stivo": {
-		"id": "IARCO21",
+		"wid": "IARCO21",
 		"title": "Rifugio Monte Stivo",
 		"webcam": "http://example.com/montestivo/webcam.jpg"
 	}
