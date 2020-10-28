@@ -41,7 +41,7 @@ module.exports = {
 
 	photos: {
 		type: 'png', //jpeg
-		width: 280,
+		width: 300,
 		height: 200
 	},
 
