@@ -19,21 +19,28 @@ body {
 	width: auto;
 	z-index: 0;
 }
-#top {
+header {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	opacity: 0.8;
 	margin: 0;
-	padding: 8px 3px 2px 3px;
-	font-size: 12px;
+	padding: 6px 3px 2px 3px;
+	font-size: 16px;
 	white-space: nowrap;	
 	background: #fc0;
 	text-align: left;
 }
-#author {
-	float: right;
+footer {
+	padding: 3px;
+	font-size: 12px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	font-style: italic;
+	text-align: right;
+	color:#888;
 }
 .wrapper {
 	z-index: 100;
@@ -102,7 +109,7 @@ img.wind-dial {
     text-transform: uppercase;
 }
 .info {
-	font-size: 16px;
+	font-size: 18px;
 	font-family: Courier;
 	line-height: 20px;
 	font-weight: bold;
@@ -116,10 +123,12 @@ img.wind-dial {
 </head>
 <body>
 	<img id="logo" src="{{imgLogo}}" />
-	<div id="top">
+	<header>
 		Telegram: {{#with botInfo}}@{{username}}{{/with}}
-		<em id="author">by {{author}}</em>
-	</div>
+	</header>
+	<footer>
+		by {{author}}
+	</footer>
 	<div class="wrapper">
 		<h1>{{title}}</h1>
 		<div class="wind-dial_wrapper">
