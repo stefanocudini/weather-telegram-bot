@@ -1,12 +1,12 @@
 
+const _ = require('lodash');
+
 const telegraf = require('telegraf');
 const telegram = require('telegraf/telegram')
 const config = require('./config');
 const weather = require('./weather');
 const html2image = require('./html2image');
 //TODO require('dotenv').config()
-
-const fetch = require('node-fetch');
 
 const bot = new telegraf(config.bot_token);
 

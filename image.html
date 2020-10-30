@@ -127,7 +127,7 @@ img.wind-dial {
 		Telegram: {{#with botInfo}}@{{username}}{{/with}}
 	</header>
 	<footer>
-		by {{author}}
+		{{#if author}}by {{author}} {{/if}}
 	</footer>
 	<div class="wrapper">
 		<h1>{{title}}</h1>

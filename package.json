@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -w ./ index.js"
+    "start": "nodemon -e js,html,css,json index.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
     "node-fetch": "^2.6.1",
+    "tmp": "^0.2.1",
     "pem": "^1.14.4"
   },
   "dependencies": {
@@ -24,7 +25,6 @@
     "moment": "^2.29.1",
     "node-html-to-image": "^3.1.0",
     "telegraf": "^3.38.0",
-    "tmp": "^0.2.1",
     "weather-underground-node": "^0.4.0"
   }
 }
