@@ -17,27 +17,19 @@ bot.use(telegrafLogger({
 	log: (str) => console.log(new Date().toISOString(), str)
 }));
 
-/*var botMe = bot.telegram.getMe();
-(async () => {
-	console.log('me', await botMe.then())
-	
-	id: 1319224921,
-	  is_bot: true,
-	  first_name: 'Bevo Libero Vallelaghi 🌤⛅️🌦🍻',
-	  username: 'bevoliberovallelaghi_bot',
-	  can_join_groups: true,
-	  can_read_all_group_messages: false,
-	  supports_inline_queries: false
-	  
-})();*/
-
 bot.start( ctx => {
 	console.log('Bot start...');
 	ctx.reply(config.i18n.list);
 });
 
 bot.command('list', ctx => {
-	ctx.reply(weather.list());
+	ctx.reply(weather.list()+"\n\n"+config.i18n.list);
+});
+
+bot.command('radar', ctx => {
+	ctx.replyWithAnimation({ url: config.radar.url }).then(()=>{
+		ctx.reply(config.i18n.list);
+	});
 });
 
 for(let name in config.stations) {

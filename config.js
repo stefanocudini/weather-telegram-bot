@@ -35,6 +35,10 @@ module.exports = {
 		apikey: process.env.WU_APIKEY,
 	},
 
+	radar: {
+		url: 'https://content.meteotrentino.it/dati-meteo/radar/home/mosaico.gif'
+	},
+
 	author: process.env.AUTHOR,
 
 	imagesPath: __dirname+'/images/',
@@ -48,7 +52,7 @@ module.exports = {
 
 	i18n: {
 		azimuth: "Nord,Nord-NordEst,Nord-Est,Est-NordEst,Est,Est-SudEst,Sud-Est,Sud-SudEst,Sud,Sud-SudOvest,Sud-Ovest,Ovest-SudOvest,Ovest,Ovest-NordOvest,Nord-Ovest,Nord-NordOvest,Nord",
-		list: "scrivi /list per l'elenco delle stazioni meteo",
+		list: "/list per l'elenco delle stazioni meteo\n\n/radar per il radar di meteotrentino",
 	},
 
 	stations: stations
