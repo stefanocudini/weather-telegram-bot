@@ -2,13 +2,20 @@
 const _ = require('lodash');
 
 const telegraf = require('telegraf');
-const telegram = require('telegraf/telegram')
+const telegram = require('telegraf/telegram');
+const telegrafLogger = require('telegraf-update-logger'); 
+
 const config = require('./config');
 const weather = require('./weather');
 const html2image = require('./html2image');
 //TODO require('dotenv').config()
 
 const bot = new telegraf(config.bot_token);
+
+bot.use(telegrafLogger({
+	colors: true,
+	log: (str) => console.log(new Date().toISOString(), str)
+}));
 
 /*var botMe = bot.telegram.getMe();
 (async () => {
@@ -76,15 +83,9 @@ for(let name in config.stations) {
 	console.log('command /meteo', param);
 });*/
 
-bot.on('message', ctx => ctx.reply(config.i18n.list));
-
 bot.on('message', ctx => {
-	console.log('onMessage',ctx)
-});
-
-bot.on('text', ct => {
-	text = ct.update.message.text;
-	console.log('onText:', process.env);
+	console.log('onMessage',ctx.message.from.username)
+	ctx.reply(config.i18n.list);
 });
 
 bot.launch();
