@@ -33,7 +33,6 @@ bot.use(telegrafLogger({
 
 bot.start( ctx => {
 	console.log('Bot start...');
-	//ctx.reply(config.i18n.welcome);
 	ctx.reply(config.i18n.list);
 });
 
