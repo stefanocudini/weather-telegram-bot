@@ -1,4 +1,6 @@
 
+const PORT = 8080;
+
 const https = require('https')
 const pem = require('pem')
 const express = require('express')
@@ -15,26 +17,16 @@ pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
 	app.use((req, res, next) => {
 		console.log(req.method, req.url);
 		console.log(req.headers);
-
-		var out = moment().format('HH:mm:ss');
-
-		_.throttle(()=> {
-			res.send(out);
-
-			next();
-		},3000, {
-			leading:true
-		});
 		
-		
+		res.end('ciao');
+
+		next();
 	});
 
-	app.listen(8080)
-
-	/*https
+	https
 	.createServer({
 		key: keys.serviceKey,
 		cert: keys.certificate
 	}, app)
-	.listen(443)*/
+	.listen(PORT)
 })
