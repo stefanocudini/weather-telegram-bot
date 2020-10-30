@@ -4,13 +4,13 @@
 const _ = require('lodash');
 const moment = require('moment');
 
-var f = _.throttle(()=> {
+var f = _.throttle((param, cb)=> {
 		
 		var out = moment().format('HH:mm:ss');
 
-		console.log('execute remote request')
+		console.log('execute remote request', 'param:'+param)
 		
-		return out;
+		cb(out);
 
 	},5000, {
 		//trailing:true,
@@ -19,8 +19,11 @@ var f = _.throttle(()=> {
 
 setInterval(()=>{
 	
-	var lastv = f();
+	f('test', (resp)=>{
 
-	console.log('cache value',lastv)
+		console.log('cache value',resp)	
+	});
+
+	
 
 }, 1000);

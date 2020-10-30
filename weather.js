@@ -6,11 +6,17 @@ const _ = require('lodash');
 const https = require('https');
 const moment = require('moment');
 const WeatherUndergroundNode = require('weather-underground-node');
+const NodeCache = require( "node-cache" );
 
 const config = require('./config');
 const util = require('./util');
 
 moment.locale('it');
+
+const cache = new NodeCache({
+	stdTTL: config.weather.cache_ttl,
+	checkperiod: config.weather.cache_ttl*2
+});
 
 function formatCondition(name, json) {
 	if(!json.observations)
@@ -35,6 +41,26 @@ function formatCondition(name, json) {
 	return v;
 };
 
+function getCondition(wid) {
+
+	return new Promise((resolve, reject) => {
+
+		let wu = new WeatherUndergroundNode(config.weather.apikey);
+
+		console.log('WU request...',wid)
+
+		wu
+		.PWSCurrentContitions(wid)
+		.request(function(err, response) {
+
+			console.log('WU response...', err || wid);
+			//_.get(response,'observations[0].obsTimeUtc')
+			resolve(err || response)
+		});
+
+	});
+};
+
 module.exports = {
 
 	formatCondition: formatCondition,
@@ -46,18 +72,24 @@ module.exports = {
 
 			let wid = config.stations[name].wid;
 
-			let wu = new WeatherUndergroundNode(config.weather.apikey);
-			console.log('WeatherUnderground connect...');
-			wu
-			.PWSCurrentContitions(wid)
-			.request(function (err, res) {
+			if(cache.has(wid)) {
 
-				console.log('WeatherUnderground response...', err || _.get(res,'observations[0].obsTimeUtc'))
+				console.log('Cache...', wid);
 
-				var cond = formatCondition(name, res);
+				cb( cache.get(wid) );
+			}
+			else {
 
-				cb( err || cond );
-			});
+				getCondition(wid).then((res) => {
+					
+					var cond = formatCondition(name, res);
+
+					cache.set(wid, cond);
+
+					cb( cond );
+				});
+			}
+		
 		}
 		else
 			cb(null);

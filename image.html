@@ -62,9 +62,10 @@ h1 {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    margin: 0 auto .5em;
-    position: relative;
-    float: right;
+    margin-top: -40px;
+    position: absolute;
+    top: 55%;
+    right: 5px;
 }
 img.wind-dial {
 	max-width: 100%;
@@ -115,7 +116,7 @@ img.wind-dial {
 	font-weight: bold;
 	color: black;
 	text-shadow: 0 0 5px white;
-	padding: 0;
+	padding: 3px 0;
 	margin: 0;
 	white-space: nowrap;
 }
@@ -141,11 +142,11 @@ img.wind-dial {
 			</div>
 		</div>
 		<div class="info">
-			Vento {{windSpeed}} km/h
+			Direzione {{windDirH}}
+			<br />
+			Velocità {{windSpeed}} km/h
 			<br />
 			Raffica {{windGust}} km/h
-			<br />
-			Direzione {{windDirH}}
 			<br />
 			Temperatura {{temp}}°C
 			<br />

@@ -2,8 +2,14 @@ const fs = require('fs');
 const _ = require('lodash');
 const nodeHtmlToImage = require('node-html-to-image');
 //	https://github.com/frinyvonnick/node-html-to-image
+const NodeCache = require( "node-cache" );
 
 const config = require('./config');
+
+const cache = new NodeCache({
+	stdTTL: config.photos.cache_ttl,
+	checkperiod: config.photos.cache_ttl*2
+});
 
 var imgLogo = 'data:image/svg+xml;base64,'+fs.readFileSync(config.imagesPath+'logo.svg', {encoding:'base64'});
 var imgWindDial = 'data:image/svg+xml;base64,'+fs.readFileSync(config.imagesPath+'WindDial.svg', {encoding:'base64'});
@@ -46,5 +52,19 @@ async function getImage(data) {	//return a Buffer
 module.exports = function(data, cb) {
 	cb = cb || _.noop;
 
-	getImage(data).then(cb);
+	if(cache.has(data.station)) {
+
+		console.log('Cache...', data.station);
+
+		cb( cache.get(data.station) );
+	}
+	else {
+		
+		getImage(data).then(res => {
+			
+			cache.set(data.station, res);
+
+			cb( res );	
+		});
+	}
 };

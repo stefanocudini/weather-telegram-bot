@@ -45,7 +45,8 @@ for(let name in config.stations) {
 			let station = config.stations[name];
 
 			data.botInfo = ctx.botInfo;
-			
+			data.station = name;
+
 			html2image(data, buf => {
 
 				let medias = [{
