@@ -31,7 +31,7 @@ module.exports = {
 	bot_token: process.env.BOT_TOKEN,
 
 	weather: {
-		cache_ttl: 60*5,	//5 minutes
+		cache_ttl: 60*3,	//5 minutes
 		apikey: process.env.WU_APIKEY,
 	},
 
