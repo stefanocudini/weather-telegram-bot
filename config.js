@@ -36,8 +36,7 @@ module.exports = {
 	},
 
 	radar: {
-		url: 'https://content.meteotrentino.it/dati-meteo/radar/home/mosaico.gif',
-		_url: 'https://localhost:8080/ciao.gif'
+		url: 'https://content.meteotrentino.it/dati-meteo/radar/home/mosaico.gif'
 	},
 
 	author: process.env.AUTHOR,
