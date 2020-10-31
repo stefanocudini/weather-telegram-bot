@@ -31,7 +31,7 @@ module.exports = {
 	bot_token: process.env.BOT_TOKEN,
 
 	weather: {
-		cache_ttl: 60*60*5,	//5 minutes
+		cache_ttl: 60*5,	//5 minutes
 		apikey: process.env.WU_APIKEY,
 	},
 
@@ -44,7 +44,7 @@ module.exports = {
 	imagesPath: __dirname+'/images/',
 
 	photos: {
-		cache_ttl: 60*60*2,	//1 minutes
+		cache_ttl: 60*2,	//1 minutes
 		type: 'png', //jpeg
 		width: 300,
 		height: 200
