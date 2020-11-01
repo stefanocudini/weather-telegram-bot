@@ -59,7 +59,7 @@ var data = null;
 		username: 'username_bot'
 	};
 
-	html2image(data, (buf, html) => {
+	html2image.dataToImage(data, (buf, html) => {
 
 		let outfile = tmp.tmpNameSync({prefix:'html2image-', postfix:'.png'});
 

@@ -17,7 +17,7 @@ var imgWindMarker = 'data:image/svg+xml;base64,'+fs.readFileSync(config.imagesPa
 
 var html = new Buffer.from(fs.readFileSync(__dirname+'/image.html')).toString('utf8');
 
-async function getImage(data) {	//return a Buffer
+async function jsonImage(data) {	//return a Buffer
 
 	_.extend(data, {
 		bot_name: config.bot_name,
@@ -39,7 +39,7 @@ async function getImage(data) {	//return a Buffer
 		puppeteerArgs: {	//	https://github.com/puppeteer/puppeteer/blob/8370ec88ae94fa59d9e9dc0c154e48527d48c9fe/docs/api.md#puppeteerlaunchoptions
 			defaultViewport: {
 				width: config.photos.width,
-				height: config.photos.height
+				height: config.photos.width
 			},
 			args: ['--no-sandbox', '--disable-setuid-sandbox']
 		//	executablePath: '/usr/bin/google-chrome-stable',
@@ -49,22 +49,26 @@ async function getImage(data) {	//return a Buffer
 	return out;
 }
 
-module.exports = function(data, cb) {
-	cb = cb || _.noop;
+module.exports = {
+	
+	//TODO rename jsonToImage
+	dataToImage: function(json, cb) {
+		cb = cb || _.noop;
 
-	if(cache.has(data.station)) {
+		if(cache.has(json.station)) {
 
-		console.log('Cache...', data.station);
+			console.log('Cache...', json.station);
 
-		cb( cache.get(data.station) );
-	}
-	else {
-		
-		getImage(data).then(res => {
+			cb( cache.get(json.station) );
+		}
+		else {
 			
-			cache.set(data.station, res);
+			jsonImage(json).then(res => {
+				
+				cache.set(json.station, res);
 
-			cb( res );	
-		});
+				cb( res );	
+			});
+		}
 	}
 };

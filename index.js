@@ -1,5 +1,9 @@
 
 const _ = require('lodash');
+const moment = require('moment');
+
+//TODO move into config
+moment.locale('it');
 
 const telegraf = require('telegraf');
 const telegram = require('telegraf/telegram');
@@ -8,7 +12,8 @@ const telegrafLogger = require('telegraf-update-logger');
 const config = require('./config');
 const wu = require('./weather_underground');
 const html2image = require('./html2image');
-//TODO require('dotenv').config()
+
+const meteotrentino = require('./meteotrentino');
 
 const bot = new telegraf(config.bot_token);
 
@@ -26,10 +31,28 @@ bot.command('list', ctx => {
 	ctx.reply(wu.list()+"\n\n"+config.i18n.list);
 });
 
+//TODO move radr into meteotrentino
 bot.command('radar', ctx => {
 	ctx.replyWithAnimation({ url: config.radar.url }).then(()=>{
 		ctx.reply(config.i18n.list);
 	});
+});
+
+bot.command('meteo', ctx => {
+	meteotrentino.nextDays((bufs) => {
+		let medias = _.map(bufs, (buf, k)=> {
+			console.log('medias',k)
+			return {
+				media: { source: buf },
+				type: 'photo',
+				caption: moment().day(k).format('dddd')
+			};
+		});
+
+		ctx.replyWithMediaGroup(medias).then(()=>{
+			ctx.reply(config.i18n.list);
+		});
+	})
 });
 
 for(let name in config.stations) {
@@ -45,7 +68,7 @@ for(let name in config.stations) {
 			data.botInfo = ctx.botInfo;
 			data.station = name;
 
-			html2image(data, buf => {
+			html2image.dataToImage(data, buf => {
 
 				let medias = [{
 					media: { source: buf },
