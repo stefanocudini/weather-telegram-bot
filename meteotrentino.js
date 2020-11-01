@@ -14,8 +14,8 @@ const util = require('./util');
 var url = "https://www.meteotrentino.it/#!/menu?menuItem=1";
 
 const cache = new NodeCache({
-	stdTTL: config.weather.cache_ttl,
-	checkperiod: config.weather.cache_ttl*2
+	stdTTL: config.meteo.cache_ttl,
+	checkperiod: config.meteo.cache_ttl*2
 });
 
 async function dayImage(day = 1) {	//return a Buffer
@@ -69,22 +69,25 @@ module.exports = {
 	nextDays: function(cb) {
 		cb = cb || _.noop;
 
-/*		if(cache.has(data.station)) {
+		if(cache.has('nextDays')) {
 
-			console.log('Cache...', data.station);
+			console.log('Meteo Cache...');
 
-			cb( cache.get(data.station) );
+			cb( cache.get('nextDays') );
 		}
-		else {*/
+		else {
 			
 			Promise.all([
 				dayImage(1),
 				dayImage(2),
 				dayImage(3),
 			]).then(images => {
-				cb(images)
+				
+				cache.set('nextDays', images);
+
+				cb(images);
 			});
-		//}
+		}
 	}
 
 }

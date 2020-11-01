@@ -31,10 +31,15 @@ module.exports = {
 	bot_token: process.env.BOT_TOKEN,
 
 	weather: {
-		cache_ttl: 60*3,	//5 minutes
+		cache_ttl: 60*3,	//3 minutes
 		apikey: process.env.WU_APIKEY,
 	},
-
+	
+	meteo: {
+		cache_ttl: 60*60*1,	//1 ora
+		nextDays_count: 3
+	},
+	//TODO move to meteo
 	radar: {
 		url: 'https://content.meteotrentino.it/dati-meteo/radar/home/mosaico.gif'
 	},
