@@ -6,7 +6,7 @@ const telegram = require('telegraf/telegram');
 const telegrafLogger = require('telegraf-update-logger'); 
 
 const config = require('./config');
-const weather = require('./weather');
+const wu = require('./weather_underground');
 const html2image = require('./html2image');
 //TODO require('dotenv').config()
 
@@ -23,7 +23,7 @@ bot.start( ctx => {
 });
 
 bot.command('list', ctx => {
-	ctx.reply(weather.list()+"\n\n"+config.i18n.list);
+	ctx.reply(wu.list()+"\n\n"+config.i18n.list);
 });
 
 bot.command('radar', ctx => {
@@ -36,9 +36,9 @@ for(let name in config.stations) {
 	
 	bot.command(name, ctx => {
 
-		weather.conditions(name, data => {
+		wu.conditions(name, data => {
 
-			console.log('weather conditions', name, data.date);
+			console.log('wu conditions', name, data.date);
 
 			let station = config.stations[name];
 
@@ -50,7 +50,7 @@ for(let name in config.stations) {
 				let medias = [{
 					media: { source: buf },
 					type: 'photo',
-					caption: config.i18n.list//weather.simpleFormat(data)
+					caption: config.i18n.list//wu.simpleFormat(data)
 				}];
 				// https://github.com/telegraf/telegraf/blob/develop/docs/examples/media-bot.js
 				if(station.webcam) {
