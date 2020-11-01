@@ -24,7 +24,7 @@ async function dayImage(day = 1) {	//return a Buffer
 		headless: true,
 		defaultViewport: {
 			width: config.photos.width,
-			height: config.photos.height
+			height: config.photos.width
 		},
 		args: ['--no-sandbox', '--disable-setuid-sandbox']
 	});

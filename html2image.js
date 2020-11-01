@@ -39,7 +39,7 @@ async function jsonImage(data) {	//return a Buffer
 		puppeteerArgs: {	//	https://github.com/puppeteer/puppeteer/blob/8370ec88ae94fa59d9e9dc0c154e48527d48c9fe/docs/api.md#puppeteerlaunchoptions
 			defaultViewport: {
 				width: config.photos.width,
-				height: config.photos.width
+				height: config.photos.height
 			},
 			args: ['--no-sandbox', '--disable-setuid-sandbox']
 		//	executablePath: '/usr/bin/google-chrome-stable',
