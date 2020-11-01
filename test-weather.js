@@ -5,10 +5,10 @@ const { spawn } = require('child_process');
 const tmp = require('tmp');
 
 const config = require('./config');
-const weather = require('./weather');
+const weather = require('./weather_underground');
 const html2image = require('./html2image');
 
-var place = 'panarotta';
+var place = 'margone';
 
 const testW = {
 	"observations": [
@@ -50,10 +50,12 @@ var data = null;
 		
 		testW.observations[0].winddir = parseInt(process.argv[2]);
 		
-		console.log(testW)
+		//console.log(testW)
 
 		data = weather.formatCondition(place, testW);
 	}
+
+	data.station = place;
 
 	data.botInfo = {
 		username: 'username_bot'

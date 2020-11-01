@@ -37,11 +37,8 @@ module.exports = {
 	
 	meteo: {
 		cache_ttl: 60*60*1,	//1 ora
-		nextDays_count: 3
-	},
-	//TODO move to meteo
-	radar: {
-		url: 'https://content.meteotrentino.it/dati-meteo/radar/home/mosaico.gif'
+		//TODO nextDays_count: 3
+		radar_url: 'https://content.meteotrentino.it/dati-meteo/radar/home/mosaico.gif'
 	},
 
 	author: process.env.AUTHOR,
@@ -60,7 +57,7 @@ module.exports = {
 		list:
 			"/stazioni per l'elenco delle stazioni meteo\n\n"+
 			"/meteo per le previsioni nei prossimi giorni\n\n"+
-			"/radar per il radar di meteotrentino",
+			"/radar per il radar dell'ultima mezz'ora",
 	},
 
 	stations: stations

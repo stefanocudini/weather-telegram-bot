@@ -6,7 +6,7 @@ const _ = require('lodash');
 const https = require('https');
 const moment = require('moment');
 const WeatherUndergroundNode = require('weather-underground-node');
-const NodeCache = require( "node-cache" );
+const NodeCache = require('node-cache');
 
 const config = require('./config');
 const util = require('./util');

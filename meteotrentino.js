@@ -4,9 +4,13 @@ https://api.weather.com/v2/pws/observations/current?stationId=IMADRUZZ2&format=j
 */
 const _ = require('lodash');
 const https = require('https');
-//const fetch = require('node-fetch');
+const fetch = require('node-fetch');
 const puppeteer = require("puppeteer");
 const NodeCache = require( "node-cache" );
+const moment = require('moment');
+
+//TODO move into config
+moment.locale('it');
 
 const config = require('./config');
 const util = require('./util');
@@ -41,9 +45,16 @@ async function dayImage(day = 1) {	//return a Buffer
 	await page.evaluate(() => {
 	  let c = document.querySelector('.cc_banner-wrapper');
 	  c.parentNode.removeChild(c);
-	  let z = document.querySelector('.leaflet-control-container');
+	  let z = document.querySelector('.leaflet-control-zoom');
 	  z.parentNode.removeChild(z);
 	});
+
+	let title = moment().day(day).format('dddd D MMMM');
+
+	await page.evaluate((title) => {
+		let e = document.querySelector('.leaflet-control-attribution');
+		e.innerHTML = `<big style="font-size:16px;text-transform:capitalize">${title}</big>`;
+	}, title);
 
 	//await page.click('.cc_btn.cc_btn_accept_all')
 	
@@ -65,6 +76,16 @@ async function dayImage(day = 1) {	//return a Buffer
 }
 
 module.exports = {
+
+	radar: function(cb) {
+
+		fetch(config.meteo.radar_url).then(resp => {
+			cb( response.buffer() )
+		});
+
+		response.body.pipe(process.stdout);
+
+	},
 
 	nextDays: function(cb) {
 		cb = cb || _.noop;

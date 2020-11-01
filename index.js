@@ -33,7 +33,8 @@ bot.command(['list','stazioni'], ctx => {
 
 //TODO move radr into meteotrentino
 bot.command('radar', ctx => {
-	ctx.replyWithAnimation({ url: config.radar.url }).then(()=>{
+
+	ctx.replyWithAnimation({ url: config.meteo.radar_url }).then(()=>{
 		ctx.reply(config.i18n.list);
 	});
 });
@@ -41,7 +42,6 @@ bot.command('radar', ctx => {
 bot.command('meteo', ctx => {
 	meteotrentino.nextDays((bufs) => {
 		let medias = _.map(bufs, (buf, k)=> {
-			console.log('medias',k)
 			return {
 				media: { source: buf },
 				type: 'photo',
