@@ -27,7 +27,7 @@ bot.start( ctx => {
 	ctx.reply(config.i18n.list);
 });
 
-bot.command('list', ctx => {
+bot.command(['list','stazioni'], ctx => {
 	ctx.reply(wu.list()+"\n\n"+config.i18n.list);
 });
 

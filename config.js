@@ -53,7 +53,7 @@ module.exports = {
 	i18n: {
 		azimuth: "Nord,Nord-NordEst,Nord-Est,Est-NordEst,Est,Est-SudEst,Sud-Est,Sud-SudEst,Sud,Sud-SudOvest,Sud-Ovest,Ovest-SudOvest,Ovest,Ovest-NordOvest,Nord-Ovest,Nord-NordOvest,Nord",
 		list:
-			"/list per l'elenco delle stazioni meteo\n\n"+
+			"/stazioni per l'elenco delle stazioni meteo\n\n"+
 			"/meteo per le previsioni nei prossimi giorni\n\n"+
 			"/radar per il radar di meteotrentino",
 	},
