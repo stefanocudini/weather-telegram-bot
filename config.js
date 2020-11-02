@@ -41,6 +41,10 @@ module.exports = {
 		radar_url: 'https://content.meteotrentino.it/dati-meteo/radar/home/mosaico.gif'
 	},
 
+	windy: {
+		cache_ttl: 60*60*1,	//1 ora
+	},
+
 	author: process.env.AUTHOR,
 
 	admin: process.env.ADMIN,

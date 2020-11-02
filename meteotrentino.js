@@ -3,7 +3,6 @@ https://docs.google.com/document/d/1eKCnKXI9xnoMGRRzOL1xPCBihNV2rOet08qpE_gArAY/
 https://api.weather.com/v2/pws/observations/current?stationId=IMADRUZZ2&format=json&units=m&apiKey=0daf84ead44348e9af84ead44348e94b
 */
 const _ = require('lodash');
-const https = require('https');
 const fetch = require('node-fetch');
 const puppeteer = require("puppeteer");
 const NodeCache = require( "node-cache" );
@@ -43,10 +42,11 @@ async function dayImage(day = 1) {	//return a Buffer
 	await page.waitFor('.leaflet-marker-icon');
 
 	await page.evaluate(() => {
-	  let c = document.querySelector('.cc_banner-wrapper');
-	  c.parentNode.removeChild(c);
-	  let z = document.querySelector('.leaflet-control-zoom');
-	  z.parentNode.removeChild(z);
+	  document
+			.querySelectorAll('.cc_banner-wrapper,.leaflet-control-zoom')
+			.forEach((e)=> {
+				e.parentNode.removeChild(e);
+			})
 	});
 
 	let title = moment().day(day).format('dddd D MMMM');

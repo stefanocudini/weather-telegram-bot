@@ -21,11 +21,14 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
+    "gifencoder": "^2.0.1",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.2.0",
     "node-html-to-image": "^3.1.0",
+    "png-file-stream": "^1.2.1",
+    "stream-to-array": "^2.3.0",
     "telegraf": "^3.38.0",
     "telegraf-update-logger": "^1.2.0",
     "weather-underground-node": "^0.4.0"
