@@ -29,6 +29,10 @@ if(fs.existsSync(fileSts)) {
 module.exports = {
 
 	bot_token: process.env.BOT_TOKEN,
+	
+	author: process.env.AUTHOR,
+
+	admin: process.env.ADMIN,
 
 	weather: {
 		cache_ttl: 60*3,	//3 minutes
@@ -44,10 +48,6 @@ module.exports = {
 	windy: {
 		cache_ttl: 60*10,	//10 min
 	},
-
-	author: process.env.AUTHOR,
-
-	admin: process.env.ADMIN,
 
 	imagesPath: __dirname+'/images/',
 

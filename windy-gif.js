@@ -17,6 +17,16 @@ const util = require('./util');
 
 const url = 'https://www.windy.com/?850h,46.000,11.083,9';
 
+//screencast gif animated
+const GIFEncoder = require('gifencoder');
+const pngFileStream = require('png-file-stream');
+const tmp = require('tmp');
+const toArray = require('stream-to-array')
+const gifFrames = 30;
+const gifDelay = 80;
+const gifPngsPrefix = 'windy'+_.now().toString().substr(0,9)+'-frame';
+const gifEncoder = new GIFEncoder(config.photos.width, config.photos.width);
+
 const cache = new NodeCache({
 	stdTTL: config.windy.cache_ttl,
 	checkperiod: config.windy.cache_ttl*2
@@ -37,62 +47,69 @@ async function dayImage(day = 1) {	//return a Buffer
 	
 	await page.goto(url);
 
-	await page.waitFor('.leaflet-tile-container');
-
 	//	https://github.com/puppeteer/puppeteer/blob/v5.4.1/docs/api.md#pagewaitforselectororfunctionortimeout-options-args
 	await page.evaluate(() => {
-		var els = [
-			'#logo-wrapper',
-			'#search',
-			'#open-in-app',
-			'#mobile-menu',
-			'#mobile-calendar'
-		];
 		document
-			.querySelectorAll(els.join())
-			.forEach( e => {
+			.querySelectorAll('#search, #mobile-menu, #mobile-calendar, #plugins')
+			.forEach((e)=> {
 				e.parentNode.removeChild(e);
-			});
+			})
 	});
+
+	await page.waitFor('.leaflet-tile-container');
 
 	const element = await page.$('.leaflet-container');
-	
-	//await page.waitFor('#plugins');
-	//let x = parseInt(config.photos.width / 2);
-	//await page.mouse.down(150,150);
-	/*await page.evaluate((x) => {
-		$('.leaflet-container').trigger('click');
-	}, x)*/
 
-	await page.waitFor(3000);
-	
-	const buf = await element.screenshot({
-		type: 'png'
-	});
+	var pngs = [];
+ 	for (let i = 0; i<2; i++) {
+		
+		await page.waitFor(gifDelay);
+
+		const buf = await element.screenshot({
+			type: 'png'
+		});
+
+		let pngtmp = tmp.tmpNameSync({prefix: gifPngsPrefix+i});
+
+		fs.writeFileSync(pngtmp, buf);
+
+		pngs.push(pngtmp);
+	}
 
 	await browser.close();
 
-	return buf
+	const gifStrem = gifEncoder.createWriteStream({
+		repeat: 0,
+		delay: gifDelay,
+		quality: 8
+	});
+
+	const stream = pngFileStream('/tmp/'+gifPngsPrefix+'*')
+		.pipe(gifStrem)
+
+	return toArray(stream).then(function (parts) {
+		return Buffer.concat(parts);
+	});
 }
 
 module.exports = {
 
 	windNow: function(cb) {
 		cb = cb || _.noop;
-
+/*
 		if(cache.has('windNow')) {
 
 			cb( cache.get('windNow') );
 		}
-		else {
+		else {*/
 			
 			dayImage(1).then(image => {
 				
-				cache.set('windNow', image);
+				//cache.set('windNow', image);
 
 				cb(image);
 			});
-		}
+		//}
 	}
 
 }
