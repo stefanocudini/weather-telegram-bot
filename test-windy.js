@@ -15,11 +15,13 @@ windy.windNow((buf) => {
 
 	//if(!buf) return;
 
-	let outfile = tmp.tmpNameSync({prefix:'windy2image-', postfix: '.gif'});
+	let outfile = tmp.tmpNameSync({prefix:'windy2image-', postfix: '.png'});
 
 	fs.writeFileSync(outfile, buf);
 
-	var child = spawn("gifview", ["-a", outfile]);
+	//var child = spawn("gifview", ["-a", outfile]);
+
+	var child = spawn("shotwell", [outfile]);
 
 
 	/*setTimeout(()=> {

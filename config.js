@@ -42,7 +42,7 @@ module.exports = {
 	},
 
 	windy: {
-		cache_ttl: 60*60*1,	//1 ora
+		cache_ttl: 60*10,	//10 min
 	},
 
 	author: process.env.AUTHOR,
@@ -63,7 +63,8 @@ module.exports = {
 		list:
 			"/stazioni per l'elenco delle stazioni meteo\n\n"+
 			"/meteo per le previsioni nei prossimi giorni\n\n"+
-			"/radar per il radar dell'ultima mezz'ora",
+			"/windy per il vento degli ultimi minuti\n\n"+
+			"/radar per il radar dell'ultima mezz'ora\n\n",
 	},
 
 	stations: stations

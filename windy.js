@@ -8,11 +8,6 @@ const _ = require('lodash');
 const puppeteer = require("puppeteer");
 const NodeCache = require( "node-cache" );
 const moment = require('moment');
-const GIFEncoder = require('gifencoder');
-const pngFileStream = require('png-file-stream');
-const tmp = require('tmp');
-
-const toArray = require('stream-to-array')
 
 //TODO move into config
 moment.locale('it');
@@ -20,12 +15,17 @@ moment.locale('it');
 const config = require('./config');
 const util = require('./util');
 
-const url = 'https://www.windy.com/?850h,46.000,11.083,10';
+const url = 'https://www.windy.com/?850h,46.000,11.083,9';
 
-const gifFrames = 30;
-const gifDelay = 80;
-const gifPngsPrefix = 'windy'+_.now().toString().substr(0,9)+'-frame';
-const gifEncoder = new GIFEncoder(config.photos.width, config.photos.width);
+//screencast gif animated
+//const GIFEncoder = require('gifencoder');
+//const pngFileStream = require('png-file-stream');
+//const tmp = require('tmp');
+//const toArray = require('stream-to-array')
+//const gifFrames = 30;
+//const gifDelay = 80;
+//const gifPngsPrefix = 'windy'+_.now().toString().substr(0,9)+'-frame';
+//const gifEncoder = new GIFEncoder(config.photos.width, config.photos.width);
 
 const cache = new NodeCache({
 	stdTTL: config.windy.cache_ttl,
@@ -56,7 +56,7 @@ async function dayImage(day = 1) {	//return a Buffer
 			})
 	});
 
-	await page.waitFor('.leaflet-tile-loaded');
+	await page.waitFor('.leaflet-tile-container');
 
 	/*let title = moment().day(day).format('dddd D MMMM');
 	await page.evaluate((title) => {
@@ -66,9 +66,11 @@ async function dayImage(day = 1) {	//return a Buffer
 
 	const element = await page.$('.leaflet-container');
 
-	var pngs = [];
- 	for (let i = 0; i<gifFrames; i++) {
+	/*var pngs = [];
+ 	for (let i = 0; i<2; i++) {
 		
+		await page.waitFor(gifDelay);
+
 		const buf = await element.screenshot({
 			type: 'png'
 		});
@@ -78,8 +80,6 @@ async function dayImage(day = 1) {	//return a Buffer
 		fs.writeFileSync(pngtmp, buf);
 
 		pngs.push(pngtmp);
-
-		await page.waitFor(gifDelay);
 	}
 
 	await browser.close();
@@ -92,46 +92,20 @@ async function dayImage(day = 1) {	//return a Buffer
 
 	const stream = pngFileStream('/tmp/'+gifPngsPrefix+'*')
 		.pipe(gifStrem)
-	
-	//console.log(pngs);
-
-	/*stream.on('finish', () => {
-		pngs.forEach( (f) => {
-			console.log(f)
-			fs.unlink(f);
-		});
-	});*/
 
 	return toArray(stream).then(function (parts) {
 		return Buffer.concat(parts);
+	});*/
+
+	await page.waitFor(3000);
+
+	const buf = await element.screenshot({
+		type: 'png'
 	});
 
-/*
+	await browser.close();
 
-	return new Promise((resolve, reject) => {
-
-		//resolve(buf)
-		var chunks = [];
-		
-		stream.on('data', (chunk) => {
-			console.log('stream data', chunk)
-			
-			chunks.push(Buffer.from(chunk)); 
-		});
-
-		stream.on('finish', () => {
-			
-			let data = Buffer.concat(chunks);
-
-			console.log('on stream finish',data)
-			
-			resolve(data);
-
-		});
-	});
-	*/
-	
-	//return encoder.out.getData();
+	return buf
 }
 
 module.exports = {
@@ -139,19 +113,19 @@ module.exports = {
 	windNow: function(cb) {
 		cb = cb || _.noop;
 
-		/*if(cache.has('nextDays')) {
+		if(cache.has('windNow')) {
 
-			cb( cache.get('nextDays') );
+			cb( cache.get('windNow') );
 		}
-		else {*/
+		else {
 			
 			dayImage(1).then(image => {
 				
-				//cache.set('nextDays', image);
+				cache.set('windNow', image);
 
 				cb(image);
 			});
-		//}
+		}
 	}
 
 }

@@ -15,6 +15,10 @@ const html2image = require('./html2image');
 
 const meteotrentino = require('./meteotrentino');
 
+const windy = require('./windy');
+
+
+
 const bot = new telegraf(config.bot_token);
 
 bot.use(telegrafLogger({
@@ -60,6 +64,19 @@ bot.command('meteo', ctx => {
 			ctx.reply(config.i18n.list);
 		});
 	})
+});
+
+bot.command('windy', ctx => {
+
+	windy.windNow((buf) => {
+		ctx.replyWithPhoto({
+			source: buf,
+			type: 'photo',
+		}).then(()=>{
+			ctx.reply(config.i18n.list);
+		});
+	})
+
 });
 
 for(let name in config.stations) {
