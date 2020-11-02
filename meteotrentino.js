@@ -92,8 +92,6 @@ module.exports = {
 
 		if(cache.has('nextDays')) {
 
-			console.log('Meteo Cache...');
-
 			cb( cache.get('nextDays') );
 		}
 		else {

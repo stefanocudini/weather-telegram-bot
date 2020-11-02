@@ -57,7 +57,7 @@ module.exports = {
 
 		if(cache.has(json.station)) {
 
-			console.log('Cache...', json.station);
+			//console.log('Cache...', json.station);
 
 			cb( cache.get(json.station) );
 		}

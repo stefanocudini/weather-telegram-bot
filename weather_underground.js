@@ -47,7 +47,7 @@ function getCondition(wid) {
 
 		let wu = new WeatherUndergroundNode(config.weather.apikey);
 
-		console.log('WU request...',wid)
+		//console.log('WU request...',wid)
 
 		wu
 		.PWSCurrentContitions(wid)
@@ -73,8 +73,6 @@ module.exports = {
 			let wid = config.stations[name].wid;
 
 			if(cache.has(wid)) {
-
-				console.log('Cache...', wid);
 
 				cb( cache.get(wid) );
 			}

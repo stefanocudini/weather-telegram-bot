@@ -1,4 +1,4 @@
-
+const fs = require('fs');
 const _ = require('lodash');
 const moment = require('moment');
 
@@ -18,8 +18,8 @@ const meteotrentino = require('./meteotrentino');
 const bot = new telegraf(config.bot_token);
 
 bot.use(telegrafLogger({
-	colors: true,
-	log: (str) => console.log(new Date().toISOString(), str)
+	//colors: true,
+	log: (str) => console.log(moment().format('lll'), str)
 }));
 
 bot.start( ctx => {
@@ -27,13 +27,20 @@ bot.start( ctx => {
 	ctx.reply(config.i18n.list);
 });
 
+bot.command('logs', ctx => {
+	if(ctx.from.username!==config.admin) return;
+	if(fs.existsSync(__dirname+'/access.log')) {
+		ctx.reply(fs.readFileSync(__dirname+'/access.log').toString('utf8'));
+
+		//TODO tail file
+	}
+});
+
 bot.command(['list','stazioni'], ctx => {
 	ctx.reply(wu.list()+"\n\n"+config.i18n.list);
 });
 
-//TODO move radr into meteotrentino
 bot.command('radar', ctx => {
-
 	ctx.replyWithAnimation({ url: config.meteo.radar_url }).then(()=>{
 		ctx.reply(config.i18n.list);
 	});
@@ -60,8 +67,6 @@ for(let name in config.stations) {
 	bot.command(name, ctx => {
 
 		wu.conditions(name, data => {
-
-			console.log('wu conditions', name, data.date);
 
 			let station = config.stations[name];
 
@@ -91,14 +96,7 @@ for(let name in config.stations) {
 	});
 }
 
-/*bot.command('meteo', ctx => {
-	let msg = context.update.message
-	let param = msg.text.split(' ')[1];
-	console.log('command /meteo', param);
-});*/
-
 bot.on('message', ctx => {
-	console.log('onMessage',ctx.message.from.username)
 	ctx.reply(config.i18n.list);
 });
 

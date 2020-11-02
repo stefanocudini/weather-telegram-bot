@@ -43,6 +43,8 @@ module.exports = {
 
 	author: process.env.AUTHOR,
 
+	admin: process.env.ADMIN,
+
 	imagesPath: __dirname+'/images/',
 
 	photos: {
