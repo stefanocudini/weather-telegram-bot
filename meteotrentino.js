@@ -97,6 +97,7 @@ module.exports = {
 		else {
 			
 			Promise.all([
+				dayImage(0),
 				dayImage(1),
 				dayImage(2),
 				dayImage(3),
