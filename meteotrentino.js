@@ -34,12 +34,15 @@ async function dayImage(day = 1) {	//return a Buffer
 
 	const page = await browser.newPage();
 	
+	//await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36');
+
 	await page.goto(url);
 
 	//	https://github.com/puppeteer/puppeteer/blob/v5.4.1/docs/api.md#pagewaitforselectororfunctionortimeout-options-args
 	
-	//await page.waitForSelector(selector+' .leaflet-marker-pane');
+	//await page.waitForSelector(' .leaflet-marker-pane');
 	await page.waitFor('.leaflet-marker-icon');
+	//await page.waitFor(1000);
 
 	await page.evaluate(() => {
 	  document
@@ -49,12 +52,12 @@ async function dayImage(day = 1) {	//return a Buffer
 			})
 	});
 
-	let title = moment().day(day).format('dddd D MMMM');
+/*NOT WORK	let title = moment().day(day).format('dddd D MMMM');
 
 	await page.evaluate((title) => {
 		let e = document.querySelector('.leaflet-control-attribution');
 		e.innerHTML = `<big style="font-size:16px;text-transform:capitalize">${title}</big>`;
-	}, title);
+	}, title);*/
 
 	//await page.click('.cc_btn.cc_btn_accept_all')
 	
@@ -64,6 +67,7 @@ async function dayImage(day = 1) {	//return a Buffer
 	await page.waitFor(100);
 
 	const element = await page.$('.leaflet-container');
+	//const element = await page.$('body');
 
 	const out = await element.screenshot({
 		type: config.photos.type

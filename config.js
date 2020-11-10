@@ -60,6 +60,7 @@ module.exports = {
 
 	i18n: {
 		azimuth: "Nord,Nord-NordEst,Nord-Est,Est-NordEst,Est,Est-SudEst,Sud-Est,Sud-SudEst,Sud,Sud-SudOvest,Sud-Ovest,Ovest-SudOvest,Ovest,Ovest-NordOvest,Nord-Ovest,Nord-NordOvest,Nord",
+		meteo: "Previsioni meteo oggi,domani,dopodomani\n\n",
 		list:
 			"/stazioni per l'elenco delle stazioni meteo\n\n"+
 			"/meteo per le previsioni nei prossimi giorni\n\n"+

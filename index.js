@@ -56,12 +56,12 @@ bot.command('meteo', ctx => {
 			return {
 				media: { source: buf },
 				type: 'photo',
-				caption: moment().day(k).format('dddd')
+				//caption: moment().day(k).format('dddd')
 			};
 		});
 
 		ctx.replyWithMediaGroup(medias).then(()=>{
-			ctx.reply(config.i18n.list);
+			ctx.reply(config.i18n.meteo+config.i18n.list);
 		});
 	})
 });
