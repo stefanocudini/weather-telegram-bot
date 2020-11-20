@@ -89,6 +89,8 @@ bot.on('message', ctx => {
 			ctx.reply(res);
 		})
 	}
+	else
+		ctx.reply(config.i18n.list);
 })
 
 for(let name in config.stations) {
@@ -124,9 +126,5 @@ for(let name in config.stations) {
 
 	});
 }
-
-bot.on('message', ctx => {
-	ctx.reply(config.i18n.list);
-});
 
 bot.launch();
