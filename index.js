@@ -17,6 +17,7 @@ const meteotrentino = require('./meteotrentino');
 
 const windy = require('./windy');
 
+const elevation = require('./elevation');
 
 
 const bot = new telegraf(config.bot_token);
@@ -67,7 +68,6 @@ bot.command('meteo', ctx => {
 });
 
 bot.command('windy', ctx => {
-
 	windy.windNow((buf) => {
 		ctx.replyWithPhoto({
 			source: buf,
@@ -75,9 +75,21 @@ bot.command('windy', ctx => {
 		}).then(()=>{
 			ctx.reply(config.i18n.list);
 		});
-	})
-
+	});
 });
+
+bot.command('altitudine', ctx => {
+	ctx.reply(config.i18n.elevation);
+	
+});
+
+bot.on('message', ctx => {
+	if(ctx.message.location) {
+		elevation.fromLocation(ctx.message.location, res => {
+			ctx.reply(res+'metri slm');
+		})
+	}
+})
 
 for(let name in config.stations) {
 	

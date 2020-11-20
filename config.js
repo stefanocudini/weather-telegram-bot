@@ -61,11 +61,13 @@ module.exports = {
 	i18n: {
 		azimuth: "Nord,Nord-NordEst,Nord-Est,Est-NordEst,Est,Est-SudEst,Sud-Est,Sud-SudEst,Sud,Sud-SudOvest,Sud-Ovest,Ovest-SudOvest,Ovest,Ovest-NordOvest,Nord-Ovest,Nord-NordOvest,Nord",
 		meteo: "Previsioni meteo oggi,domani,dopodomani\n\n",
+		elevation: "Invia la tua posizione\n\n",
 		list:
 			"/stazioni per l'elenco delle stazioni meteo\n\n"+
 			"/meteo per le previsioni nei prossimi giorni\n\n"+
 			"/windy per il vento degli ultimi minuti\n\n"+
-			"/radar per il radar dell'ultima mezz'ora\n\n",
+			"/radar per il radar dell'ultima mezz'ora\n\n"+
+			"/altitudine per sapere la tua altitudine\n\n",
 	},
 
 	stations: stations

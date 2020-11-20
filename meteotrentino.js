@@ -84,10 +84,10 @@ module.exports = {
 	radar: function(cb) {
 
 		fetch(config.meteo.radar_url).then(resp => {
-			cb( response.buffer() )
+			cb( resp.buffer() )
 		});
 
-		response.body.pipe(process.stdout);
+		resp.body.pipe(process.stdout);
 
 	},
 
