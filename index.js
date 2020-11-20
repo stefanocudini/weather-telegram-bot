@@ -86,7 +86,7 @@ bot.command('altitudine', ctx => {
 bot.on('message', ctx => {
 	if(ctx.message.location) {
 		elevation.fromLocation(ctx.message.location, res => {
-			ctx.reply(res+'metri slm');
+			ctx.reply(res);
 		})
 	}
 })
