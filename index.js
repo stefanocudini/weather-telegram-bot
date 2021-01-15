@@ -83,7 +83,7 @@ bot.command('altitudine', ctx => {
 	
 });
 
-bot.on('message', ctx => {
+/*bot.on('message', ctx => {
 	if(ctx.message.location) {
 		elevation.fromLocation(ctx.message.location, res => {
 			ctx.reply(res);
@@ -91,7 +91,7 @@ bot.on('message', ctx => {
 	}
 	else
 		ctx.reply(config.i18n.list);
-})
+})*/
 
 for(let name in config.stations) {
 	
