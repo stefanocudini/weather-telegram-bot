@@ -7,7 +7,7 @@ module.exports = {
 	fromLocation: function(loc, cb) {
 
 		var type = 'dem',
-			host = 'https://labs.easyblog.it';
+			host = 'https://opengeo.tech';
 
 		/*fetch(url).then(res => res.json()).then(json => {
 			console.log('response',json)
