@@ -22,3 +22,8 @@ WU_APIKEY=XXXXXXXXXXXXXXXXXX
 AUTHOR=@admin_username
 
 ```
+
+
+- BOT_TOKEN: https://t.me/BotFather
+
+- WU_APIKEY: https://www.wunderground.com/member/api-keys
