@@ -7,12 +7,14 @@ const fileSts = __dirname+'/stations.json';
 
 var stations = {
 	'lagolo': {
-		id: 'IMADRUZZ2',
-		title: 'Lagolo',
+		"type": "weather_underground",
+		"wid": 'IMADRUZZ2',
+		"title": 'Lagolo',
 	},
 	'stivo': {
-		id: 'IARCO21',
-		title: 'Rifugio Monte Stivo'
+		"type": "weather_underground",
+		"wid": 'IARCO21',
+		"title": 'Rifugio Monte Stivo'
 	}
 };
 
