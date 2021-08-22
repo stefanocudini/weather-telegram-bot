@@ -119,7 +119,7 @@ for(let name in config.stations) {
 						type: 'photo'
 					});
 				}
-
+				
 				ctx.replyWithMediaGroup(medias);
 			});
 		});
