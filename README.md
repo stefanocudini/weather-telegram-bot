@@ -8,3 +8,17 @@ weather telegram bot  in NodeJs
 npm install
 npm start
 ```
+
+
+## setup
+
+create ```.env``` file containts
+
+```
+BOT_TOKEN=XXXXXXXXXXXXXXXXXX
+
+WU_APIKEY=XXXXXXXXXXXXXXXXXX
+
+AUTHOR=@admin_username
+
+```
