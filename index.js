@@ -19,6 +19,7 @@ const windy = require('./windy');
 
 const elevation = require('./elevation');
 
+console.log('Config:',config);
 
 const bot = new telegraf(config.bot_token);
 
