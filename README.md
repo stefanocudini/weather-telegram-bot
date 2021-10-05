@@ -2,14 +2,6 @@
 
 weather telegram bot  in NodeJs
 
-## usage
-
-```bash
-npm install
-npm start
-```
-
-
 ## setup
 
 create ```.env``` file containts
@@ -22,18 +14,33 @@ WU_APIKEY=XXXXXXXXXXXXXXXXXX
 AUTHOR=@admin_username
 
 ```
+create new file stations.json contains wunderground station Ids.
+
+## run in docker
+
+```bash
+docker-compose up
+```
 
 
 - BOT_TOKEN: https://t.me/BotFather
 
 - WU_APIKEY: https://www.wunderground.com/member/api-keys
 
+# usage
+
+```bash
+npm install
+npm start
+```
+
 
 ## requirements
 
-this library used to renderize web pages:
-https://github.com/puppeteer/puppeteer
+docker, docker-compose.
 
+Running in nodejs this library used to renderize web pages:
+https://github.com/puppeteer/puppeteer
 
 ```bash
 sudo apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 \ 
@@ -42,5 +49,5 @@ sudo apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 \
 	 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \
 	 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 \
 	 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 \
-	 libnss3 lsb-release xdg-utils wget
+	 libnss3 lsb-release xdg-utils
 ```
