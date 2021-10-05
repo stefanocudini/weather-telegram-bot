@@ -14,6 +14,7 @@ WU_APIKEY=XXXXXXXXXXXXXXXXXX
 AUTHOR=@admin_username
 
 ```
+create new file stations.json contains wunderground station Ids.
 
 ## run in docker
 
