@@ -1,0 +1,17 @@
+version: '3'
+
+networks:
+  default:
+    driver: bridge
+
+services:
+  weather-bot:
+    image: weather-bot:latest
+    build:
+      context: ./
+    container_name: weather-bot
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - WU_APIKEY=${WU_APIKEY}
+      - AUTHOR=${AUTHOR}
+    restart: always
