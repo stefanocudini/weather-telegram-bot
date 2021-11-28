@@ -24,6 +24,7 @@
     "pem": "^1.14.4"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
     "dotenv": "^8.2.0",
     "gifencoder": "^2.0.1",
     "lodash": "^4.17.20",
