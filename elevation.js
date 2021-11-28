@@ -1,6 +1,6 @@
 
 const fetch = require('node-fetch');
-const util = require('./util');
+const util = require('./lib/util');
 
 module.exports = {
 
@@ -21,9 +21,9 @@ module.exports = {
 			const dem = await fetch(`${host}/maps/geotiff-picker/${type}?lat=${loc.latitude}&lng=${loc.longitude}`);
 			type = 'aspect';
 			const asp = await fetch(`${host}/maps/geotiff-picker/${type}?lat=${loc.latitude}&lng=${loc.longitude}`);
-			
+
 			return Promise.all([dem.json(), asp.json()]).then(res => {
-				
+
 				//console.log(res);
 
 				let ele = res[0].val,

@@ -9,7 +9,7 @@ const WeatherUndergroundNode = require('weather-underground-node');
 const NodeCache = require('node-cache');
 
 const config = require('./config');
-const util = require('./util');
+const util = require('./lib/util');
 
 moment.locale('it');
 
@@ -23,9 +23,9 @@ function formatCondition(name, json) {
 		return null;
 
 	let o = json.observations[0];
-	let m = json.observations[0].metric;	
+	let m = json.observations[0].metric;
 
-	var v = {
+	return {
 		title: config.stations[name].title,
 		windSpeed: m.windSpeed,
 		windGust: m.windGust,
@@ -33,12 +33,11 @@ function formatCondition(name, json) {
 		windDirh: util.azimuth(o.winddir),
 		windDirH: util.azimuth(o.winddir, true),
 		temp: m.temp,
-		ele: m.elev,  
+		ele: m.elev,
 		date: moment(o.obsTimeLocal).format('LLL'),
 		time: moment(o.obsTimeLocal).fromNow(),
 		webcam: config.stations[name].webcam
 	};
-	return v;
 };
 
 function getCondition(wid) {
@@ -52,10 +51,13 @@ function getCondition(wid) {
 		wu
 		.PWSCurrentContitions(wid)
 		.request(function(err, response) {
-
-			console.log('WU response...', err || wid);
 			//_.get(response,'observations[0].obsTimeUtc')
-			resolve(err || response)
+			if(err) {
+				reject(err);
+			}
+			else {
+				resolve(response);
+			}
 		});
 
 	});
@@ -63,7 +65,7 @@ function getCondition(wid) {
 
 module.exports = {
 
-	formatCondition: formatCondition,
+	formatCondition,
 
 	conditions: function(name, cb) {
 		cb = cb || _.noop;
@@ -78,16 +80,20 @@ module.exports = {
 			}
 			else {
 
-				getCondition(wid).then((res) => {
-					
+				getCondition(wid)
+				.then(res => {
+
 					var cond = formatCondition(name, res);
 
 					cache.set(wid, cond);
 
 					cb( cond );
-				});
+				})
+				.catch(err => {
+					cb({error: err });
+				})
 			}
-		
+
 		}
 		else
 			cb(null);
@@ -104,7 +110,7 @@ module.exports = {
 
 		var ttmpl = "{title}\nVento {windSpeed}km/h \nRaffica {windGust}km/h \nDirezione {windDir} {windDirH} \nTemperatura {temp}°C \n{date}";
 		var mtmpl = _.template(ttmpl);
-		
+
 		return mtmpl(data);
 	}
 }

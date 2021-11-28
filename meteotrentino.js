@@ -12,7 +12,7 @@ const moment = require('moment');
 moment.locale('it');
 
 const config = require('./config');
-const util = require('./util');
+const util = require('./lib/util');
 
 var url = "https://www.meteotrentino.it/#!/menu?menuItem=1";
 
@@ -22,7 +22,7 @@ const cache = new NodeCache({
 });
 
 async function dayImage(day = 1) {	//return a Buffer
-	
+
 	const browser = await puppeteer.launch({
 		headless: true,
 		defaultViewport: {
@@ -33,13 +33,13 @@ async function dayImage(day = 1) {	//return a Buffer
 	});
 
 	const page = await browser.newPage();
-	
+
 	//await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36');
 
 	await page.goto(url);
 
 	//	https://github.com/puppeteer/puppeteer/blob/v5.4.1/docs/api.md#pagewaitforselectororfunctionortimeout-options-args
-	
+
 	//await page.waitForSelector(' .leaflet-marker-pane');
 	await page.waitFor('.leaflet-marker-icon');
 	//await page.waitFor(1000);
@@ -60,7 +60,7 @@ async function dayImage(day = 1) {	//return a Buffer
 	}, title);*/
 
 	//await page.click('.cc_btn.cc_btn_accept_all')
-	
+
 	//await page.waitFor(1000);
 
 	await page.click('.btn-group > button:nth-child('+day+')');
@@ -74,7 +74,7 @@ async function dayImage(day = 1) {	//return a Buffer
 	});
 
 	await browser.close();
-	
+
 	//TODO await browser.close();
 	return out;
 }
@@ -99,13 +99,13 @@ module.exports = {
 			cb( cache.get('nextDays') );
 		}
 		else {
-			
+
 			Promise.all([
 				dayImage(1),
 				dayImage(2),
 				dayImage(3),
 			]).then(images => {
-				
+
 				cache.set('nextDays', images);
 
 				cb(images);

@@ -13,7 +13,7 @@ const moment = require('moment');
 moment.locale('it');
 
 const config = require('./config');
-const util = require('./util');
+const util = require('./lib/util');
 
 const url = 'https://www.windy.com/?850h,46.000,11.083,9';
 
@@ -33,7 +33,7 @@ const cache = new NodeCache({
 });
 
 async function dayImage(day = 1) {	//return a Buffer
-	
+
 	const browser = await puppeteer.launch({
 		headless: true,
 		defaultViewport: {
@@ -44,7 +44,7 @@ async function dayImage(day = 1) {	//return a Buffer
 	});
 
 	const page = await browser.newPage();
-	
+
 	await page.goto(url);
 
 	//	https://github.com/puppeteer/puppeteer/blob/v5.4.1/docs/api.md#pagewaitforselectororfunctionortimeout-options-args
@@ -62,7 +62,7 @@ async function dayImage(day = 1) {	//return a Buffer
 
 	var pngs = [];
  	for (let i = 0; i<2; i++) {
-		
+
 		await page.waitFor(gifDelay);
 
 		const buf = await element.screenshot({
@@ -102,9 +102,9 @@ module.exports = {
 			cb( cache.get('windNow') );
 		}
 		else {*/
-			
+
 			dayImage(1).then(image => {
-				
+
 				//cache.set('windNow', image);
 
 				cb(image);
