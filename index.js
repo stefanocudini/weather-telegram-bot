@@ -17,6 +17,8 @@ const weatherGardolo = require('./meteogardolo');
 
 const html2image = require('./html2image');
 
+const url2image = require('./url2image');
+
 const meteotrentino = require('./meteotrentino');
 
 const windy = require('./windy');
@@ -57,7 +59,7 @@ bot.command('radar', ctx => {
 });
 
 bot.command('meteo', ctx => {
-	meteotrentino.nextDays((bufs) => {
+	meteotrentino.nextDays( bufs => {
 		let medias = _.map(bufs, (buf, k)=> {
 			return {
 				media: { source: buf },
@@ -73,11 +75,11 @@ bot.command('meteo', ctx => {
 });
 
 bot.command('windy', ctx => {
-	windy.windNow((buf) => {
+	windy.windNow( buf => {
 		ctx.replyWithPhoto({
 			source: buf,
 			type: 'photo',
-		}).then(()=>{
+		}).then(() => {
 			ctx.reply(config.i18n.list);
 		});
 	});
@@ -122,11 +124,31 @@ for(let name in config.stations) {
 						}];
 						// https://github.com/telegraf/telegraf/blob/develop/docs/examples/media-bot.js
 						if(station.webcam) {
-							medias.push({
-								//source: res.buffer(),
-								media: { url: station.webcam },
-								type: 'photo'
-							});
+
+							if(_.isString(station.webcam)) {
+
+								medias.push({
+									media: { url: station.webcam },
+									type: 'photo'
+								});
+							}
+							else if(station.webcam.url) {
+
+
+								url2image(station.webcam.url, station.webcam.element, buf => {
+
+									/*medias.push({
+										source: buf,
+										type: 'photo'
+									});*/
+									ctx.replyWithPhoto({
+										source: buf,
+										type: 'photo',
+									})
+									console.log('url2image---',buf, medias)
+									//ctx.replyWithMediaGroup(medias);
+								});
+							}
 						}
 
 						ctx.replyWithMediaGroup(medias);
@@ -160,11 +182,16 @@ for(let name in config.stations) {
 						}];
 						// https://github.com/telegraf/telegraf/blob/develop/docs/examples/media-bot.js
 						if(station.webcam) {
-							medias.push({
-								//source: res.buffer(),
-								media: { url: station.webcam },
-								type: 'photo'
-							});
+
+							if(_.isString(station.webcam)) {
+
+								medias.push({
+									//source: res.buffer(),
+									media: { url: station.webcam },
+									type: 'photo'
+								});
+							}
+							//TODO else station.webcam.url
 						}
 
 						ctx.replyWithMediaGroup(medias);
