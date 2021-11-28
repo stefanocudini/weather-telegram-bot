@@ -1,0 +1,43 @@
+{
+	"bondone": {
+		"type": "meteogardolo",
+		"wid": "cima-palon-2098-m",
+		"title": "Cima Palon",
+		"_webcam": {
+			"url": "https://www.skylinewebcams.com/it/webcam/italia/trentino-alto-adige/trento/monte-bondone.html",
+			"element": "#live"
+		}
+	},
+	"lagolo": {
+		"type": "weather_underground",
+		"wid": "IMADRUZZ2",
+		"title": "Lagolo decollo"
+	},
+	"stivo": {
+		"type": "weather_underground",
+		"wid": "IARCO21",
+		"title": "Rifugio Monte Stivo"
+	},
+	"margone": {
+		"type": "weather_underground",
+		"wid": "ITRENTIN86",
+		"title": "Margone",
+		"webcam": "https://meteoweb.valledeilaghi.it/meteomargone/margone4.jpg"
+	},
+	"costalta": {
+		"type": "weather_underground",
+		"wid": "IBASELGA4",
+		"title": "Dosso di Costalta"
+	},
+	"panarotta": {
+		"type": "weather_underground",
+		"wid": "IPERGI1",
+		"title": "Cima Panarotta",
+		"webcam": "https://vlt.samaretz.it/Decollo%20Vetriolo/decollovetriolo.jpg"
+	},
+	"torbole": {
+		"type": "weather_underground",
+		"wid": "INAGOTOR2",
+		"title": "Torbole"
+	}
+}
