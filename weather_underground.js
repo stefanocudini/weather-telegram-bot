@@ -35,7 +35,7 @@ function formatCondition(name, json) {
 		temp: m.temp,
 		ele: m.elev,
 		date: moment(o.obsTimeLocal).format('LLL'),
-		time: moment(o.obsTimeLocal).fromNow(),
+//		time: moment(o.obsTimeLocal).fromNow(),
 		webcam: config.stations[name].webcam
 	};
 };
@@ -79,7 +79,6 @@ module.exports = {
 				cb( cache.get(wid) );
 			}
 			else {
-
 				getCondition(wid)
 				.then(res => {
 
@@ -93,10 +92,10 @@ module.exports = {
 					cb({error: err });
 				})
 			}
-
 		}
-		else
+		else {
 			cb(null);
+		}
 	},
 
 	list: function() {
