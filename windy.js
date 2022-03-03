@@ -13,7 +13,7 @@ const moment = require('moment');
 moment.locale('it');
 
 const config = require('./config');
-const util = require('./util');
+const util = require('./lib/util');
 
 const url = 'https://www.windy.com/?850h,46.000,11.083,9';
 
@@ -23,7 +23,7 @@ const cache = new NodeCache({
 });
 
 async function dayImage(day = 1) {	//return a Buffer
-	
+
 	const browser = await puppeteer.launch({
 		headless: true,
 		defaultViewport: {
@@ -34,7 +34,7 @@ async function dayImage(day = 1) {	//return a Buffer
 	});
 
 	const page = await browser.newPage();
-	
+
 	await page.goto(url);
 
 	await page.waitFor('.leaflet-tile-container');
@@ -56,7 +56,7 @@ async function dayImage(day = 1) {	//return a Buffer
 	});
 
 	const element = await page.$('.leaflet-container');
-	
+
 	//await page.waitFor('#plugins');
 	//let x = parseInt(config.photos.width / 2);
 	//await page.mouse.down(150,150);
@@ -65,7 +65,7 @@ async function dayImage(day = 1) {	//return a Buffer
 	}, x)*/
 
 	await page.waitFor(3000);
-	
+
 	const buf = await element.screenshot({
 		type: 'png'
 	});
@@ -85,9 +85,9 @@ module.exports = {
 			cb( cache.get('windNow') );
 		}
 		else {
-			
+
 			dayImage(1).then(image => {
-				
+
 				cache.set('windNow', image);
 
 				cb(image);

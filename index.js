@@ -7,11 +7,17 @@ moment.locale('it');
 
 const telegraf = require('telegraf');
 const telegram = require('telegraf/telegram');
-const telegrafLogger = require('telegraf-update-logger'); 
+const telegrafLogger = require('telegraf-update-logger');
 
 const config = require('./config');
-const wu = require('./weather_underground');
+
+const weatherUnderground = require('./weather_underground');
+const weatherGardolo = require('./meteogardolo');
+
+
 const html2image = require('./html2image');
+
+const url2image = require('./url2image');
 
 const meteotrentino = require('./meteotrentino');
 
@@ -19,7 +25,7 @@ const windy = require('./windy');
 
 const elevation = require('./elevation');
 
-console.log('Config:',config);
+//console.log('Config:',config);
 
 const bot = new telegraf(config.bot_token);
 
@@ -43,7 +49,7 @@ bot.command('logs', ctx => {
 });
 
 bot.command(['list','stazioni'], ctx => {
-	ctx.reply(wu.list()+"\n\n"+config.i18n.list);
+	ctx.reply(weatherUnderground.list()+"\n\n"+config.i18n.list);
 });
 
 bot.command('radar', ctx => {
@@ -53,7 +59,7 @@ bot.command('radar', ctx => {
 });
 
 bot.command('meteo', ctx => {
-	meteotrentino.nextDays((bufs) => {
+	meteotrentino.nextDays( bufs => {
 		let medias = _.map(bufs, (buf, k)=> {
 			return {
 				media: { source: buf },
@@ -69,11 +75,11 @@ bot.command('meteo', ctx => {
 });
 
 bot.command('windy', ctx => {
-	windy.windNow((buf) => {
+	windy.windNow( buf => {
 		ctx.replyWithPhoto({
 			source: buf,
 			type: 'photo',
-		}).then(()=>{
+		}).then(() => {
 			ctx.reply(config.i18n.list);
 		});
 	});
@@ -81,7 +87,7 @@ bot.command('windy', ctx => {
 
 bot.command('altitudine', ctx => {
 	ctx.reply(config.i18n.elevation);
-	
+
 });
 
 /*bot.on('message', ctx => {
@@ -95,36 +101,112 @@ bot.command('altitudine', ctx => {
 })*/
 
 for(let name in config.stations) {
-	
+
 	bot.command(name, ctx => {
 
-		wu.conditions(name, data => {
+		const station = config.stations[name];
 
-			let station = config.stations[name];
+		if(station.type==='meteogardolo') {
 
-			data.botInfo = ctx.botInfo;
-			data.station = name;
+			weatherGardolo.conditions(name, data => {	//get data from weatherUnderground API
 
-			html2image.dataToImage(data, buf => {
+				if(!data.error) {
 
-				let medias = [{
-					media: { source: buf },
-					type: 'photo',
-					caption: config.i18n.list//wu.simpleFormat(data)
-				}];
-				// https://github.com/telegraf/telegraf/blob/develop/docs/examples/media-bot.js
-				if(station.webcam) {
-					medias.push({
-						//source: res.buffer(),
-						media: { url: station.webcam },
-						type: 'photo'
+					data.botInfo = ctx.botInfo;
+					data.station = name;
+
+					html2image.dataToImage(data, buf => {
+
+						let medias = [{
+							media: { source: buf },
+							type: 'photo',
+							caption: config.i18n.list//weatherUnderground.simpleFormat(data)
+						}];
+						// https://github.com/telegraf/telegraf/blob/develop/docs/examples/media-bot.js
+						if(station.webcam) {
+
+							if(_.isString(station.webcam)) {
+
+								medias.push({
+									media: { url: station.webcam },
+									type: 'photo'
+								});
+							}
+							else if(station.webcam.url) {
+
+
+								url2image(station.webcam.url, station.webcam.element, buf => {
+
+									/*medias.push({
+										source: buf,
+										type: 'photo'
+									});*/
+									ctx.replyWithPhoto({
+										source: buf,
+										type: 'photo',
+									})
+									console.log('url2image---',buf, medias)
+									//ctx.replyWithMediaGroup(medias);
+								});
+							}
+						}
+
+						ctx.replyWithMediaGroup(medias);
 					});
 				}
-
-				ctx.replyWithMediaGroup(medias);
+				else {
+					const buf = fs.readFileSync(__dirname+'/images/john.gif');
+					ctx.replyWithAnimation({
+						source: buf
+					}).then(()=>{
+						ctx.reply(config.i18n.error.station_nodata);
+					});
+				}
 			});
-		});
+		}
+		else if(station.type==='weather_underground') {
 
+			weatherUnderground.conditions(name, data => {	//get data from weatherUnderground API
+
+				if(!data.error) {
+
+					data.botInfo = ctx.botInfo;
+					data.station = name;
+
+					html2image.dataToImage(data, buf => {
+
+						let medias = [{
+							media: { source: buf },
+							type: 'photo',
+							caption: config.i18n.list//weatherUnderground.simpleFormat(data)
+						}];
+						// https://github.com/telegraf/telegraf/blob/develop/docs/examples/media-bot.js
+						if(station.webcam) {
+
+							if(_.isString(station.webcam)) {
+
+								medias.push({
+									//source: res.buffer(),
+									media: { url: station.webcam },
+									type: 'photo'
+								});
+							}
+							//TODO else station.webcam.url
+						}
+
+						ctx.replyWithMediaGroup(medias);
+					});
+				}
+				else {
+					const buf = fs.readFileSync(__dirname+'/images/john.gif');
+					ctx.replyWithAnimation({
+						source: buf
+					}).then(()=>{
+						ctx.reply(config.i18n.error.station_nodata);
+					});
+				}
+			});
+		}
 	});
 }
 

@@ -31,7 +31,7 @@ if(fs.existsSync(fileSts)) {
 module.exports = {
 
 	bot_token: process.env.BOT_TOKEN,
-	
+
 	author: process.env.AUTHOR,
 
 	admin: process.env.ADMIN,
@@ -40,7 +40,7 @@ module.exports = {
 		cache_ttl: 60*3,	//3 minutes
 		apikey: process.env.WU_APIKEY,
 	},
-	
+
 	meteo: {
 		cache_ttl: 60*60*1,	//1 ora
 		//TODO nextDays_count: 3
@@ -64,6 +64,9 @@ module.exports = {
 		azimuth: "Nord,Nord-NordEst,Nord-Est,Est-NordEst,Est,Est-SudEst,Sud-Est,Sud-SudEst,Sud,Sud-SudOvest,Sud-Ovest,Ovest-SudOvest,Ovest,Ovest-NordOvest,Nord-Ovest,Nord-NordOvest,Nord",
 		meteo: "Previsioni meteo oggi,domani,dopodomani\n\n",
 		elevation: "Invia la tua posizione\n\n",
+		error: {
+			station_nodata: "La Stazione non funziona! Cerca altre /stazioni"
+		},
 		list:
 			"/stazioni per l'elenco delle stazioni meteo\n\n"+
 			"/meteo per le previsioni nei prossimi giorni\n\n"+
