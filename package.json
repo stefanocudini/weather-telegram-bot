@@ -30,6 +30,7 @@
     "moment": "^2.29.1",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.2.0",
+    "puppeteer": "3.0.0",
     "node-html-to-image": "^3.1.0",
     "png-file-stream": "^1.2.1",
     "stream-to-array": "^2.3.0",
