@@ -1,4 +1,4 @@
-# weather bot
+# Weather Telegram Bot
 
 weather telegram bot  in NodeJs
 
