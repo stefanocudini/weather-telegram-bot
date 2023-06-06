@@ -12,7 +12,8 @@ const telegrafLogger = require('telegraf-update-logger');
 const config = require('./config');
 
 const weatherUnderground = require('./weather_underground');
-const weatherGardolo = require('./meteogardolo');
+
+//const weatherGardolo = require('./_meteogardolo');
 
 
 const html2image = require('./html2image');
