@@ -13,9 +13,6 @@ const config = require('./config');
 
 const weatherUnderground = require('./weather_underground');
 
-//const weatherGardolo = require('./_meteogardolo');
-
-
 const html2image = require('./html2image');
 
 const url2image = require('./url2image');
@@ -107,65 +104,7 @@ for(let name in config.stations) {
 
 		const station = config.stations[name];
 
-		if(station.type==='meteogardolo') {
-
-			weatherGardolo.conditions(name, data => {	//get data from weatherUnderground API
-
-				if(!data.error) {
-
-					data.botInfo = ctx.botInfo;
-					data.station = name;
-
-					html2image.dataToImage(data, buf => {
-
-						let medias = [{
-							media: { source: buf },
-							type: 'photo',
-							caption: config.i18n.list//weatherUnderground.simpleFormat(data)
-						}];
-						// https://github.com/telegraf/telegraf/blob/develop/docs/examples/media-bot.js
-						if(station.webcam) {
-
-							if(_.isString(station.webcam)) {
-
-								medias.push({
-									media: { url: station.webcam },
-									type: 'photo'
-								});
-							}
-							else if(station.webcam.url) {
-
-
-								url2image(station.webcam.url, station.webcam.element, buf => {
-
-									/*medias.push({
-										source: buf,
-										type: 'photo'
-									});*/
-									ctx.replyWithPhoto({
-										source: buf,
-										type: 'photo',
-									})
-									console.log('url2image---',buf, medias)
-									//ctx.replyWithMediaGroup(medias);
-								});
-							}
-						}
-
-						ctx.replyWithMediaGroup(medias);
-					});
-				}
-				else {
-					const buf = fs.readFileSync(__dirname+'/images/john.gif');
-					ctx.replyWithAnimation({
-						source: buf
-					}).then(()=>{
-						ctx.reply(config.i18n.error.station_nodata);
-					});
-				}
-			});
-		}
-		else if(station.type==='weather_underground') {
+		if(station.type==='weather_underground') {
 
 			weatherUnderground.conditions(name, data => {	//get data from weatherUnderground API
 
